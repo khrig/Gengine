@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Gengine.Entities {
     public abstract class Entity {
@@ -17,5 +18,7 @@ namespace Gengine.Entities {
                 entityComponent.Update(deltaTime);
             }
         }
+
+        public abstract void Draw(SpriteBatch spriteBatch);
     }
 }

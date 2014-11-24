@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Gengine.State {
     public class StateManager {
@@ -30,6 +31,9 @@ namespace Gengine.State {
         }
 
         public void HandleInput(string key) {
+            if (stateStack.Count == 0)
+                return;
+
             var currentState = stateStack.Peek();
             currentState.HandleInput(key);
         }
@@ -52,15 +56,16 @@ namespace Gengine.State {
             }
         }
 
-        public void Draw() {
+        public void Draw(SpriteBatch spriteBatch) {
             foreach (var state in stateStack) {
-                if (!state.Draw())
+                if (!state.Draw(spriteBatch))
                     return;
             }
         }
 
         private void InitState(State state) {
             state.StateManager = this;
+            state.Init();
         }
     }
 }
