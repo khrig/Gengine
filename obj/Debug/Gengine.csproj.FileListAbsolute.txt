@@ -8,3 +8,6 @@ C:\Code\Gengine\Gengine\bin\Debug\Gengine.pdb
 C:\Code\Gengine\Gengine\obj\Debug\Gengine.csprojResolveAssemblyReference.cache
 C:\Code\Gengine\Gengine\obj\Debug\Gengine.dll
 C:\Code\Gengine\Gengine\obj\Debug\Gengine.pdb
+C:\Code\Gengine\obj\Debug\Gengine.csprojResolveAssemblyReference.cache
+C:\Code\Gengine\obj\Debug\Gengine.dll
+C:\Code\Gengine\obj\Debug\Gengine.pdb

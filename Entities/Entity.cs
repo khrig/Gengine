@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Gengine.Entities {
     public abstract class Entity {
-        private readonly Dictionary<string, IEntityComponent> components = new Dictionary<string, IEntityComponent>();
+        private readonly HashSet<IEntityComponent> components = new HashSet<IEntityComponent>();
 
-        public void AddComponent(string id, IEntityComponent entityComponent) {
-            components.Add(id, entityComponent);
+        public void AddComponent(IEntityComponent entityComponent) {
+            entityComponent.SetRelation(this);
+            components.Add(entityComponent);
         }
 
-        public IEntityComponent GetComponent(string id) {
-            return components[id];
+        public T GetComponent<T>() {
+            return (T)components.First(c => c.GetType() == typeof(T));
         }
 
         public void Update(float deltaTime) {
-            foreach (IEntityComponent entityComponent in components.Values) {
+            foreach (IEntityComponent entityComponent in components) {
                 entityComponent.Update(deltaTime);
             }
         }

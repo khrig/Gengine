@@ -3,7 +3,7 @@ using Gengine.Entities;
 
 namespace Gengine.System {
     public class Renderer {
-        private SpriteBatch spriteBatch;
+        private readonly SpriteBatch spriteBatch;
 
         public Renderer(SpriteBatch batch) {
             this.spriteBatch = batch;
