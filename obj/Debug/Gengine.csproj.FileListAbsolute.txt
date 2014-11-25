@@ -1,19 +1,5 @@
-C:\Code\EventManager\Gengine\obj\Debug\Gengine.csprojResolveAssemblyReference.cache
-C:\Code\EventManager\Gengine\bin\Debug\Gengine.dll
-C:\Code\EventManager\Gengine\bin\Debug\Gengine.pdb
-C:\Code\EventManager\Gengine\obj\Debug\Gengine.dll
-C:\Code\EventManager\Gengine\obj\Debug\Gengine.pdb
-C:\Code\Gengine\Gengine\bin\Debug\Gengine.dll
-C:\Code\Gengine\Gengine\bin\Debug\Gengine.pdb
-C:\Code\Gengine\Gengine\obj\Debug\Gengine.csprojResolveAssemblyReference.cache
-C:\Code\Gengine\Gengine\obj\Debug\Gengine.dll
-C:\Code\Gengine\Gengine\obj\Debug\Gengine.pdb
-<<<<<<< HEAD
 C:\Code\Gengine\bin\Debug\Gengine.dll
 C:\Code\Gengine\bin\Debug\Gengine.pdb
-C:\Code\Gengine\obj\Debug\Gengine.csprojResolveAssemblyReference.cache
-C:\Code\Gengine\obj\Debug\Gengine.dll
-C:\Code\Gengine\obj\Debug\Gengine.pdb
 C:\Code\Gengine\bin\Debug\MonoGame.Framework.dll
 C:\Code\Gengine\bin\Debug\SharpDX.dll
 C:\Code\Gengine\bin\Debug\SharpDX.Direct3D11.dll
@@ -27,8 +13,5 @@ C:\Code\Gengine\bin\Debug\SharpDX.XAudio2.xml
 C:\Code\Gengine\bin\Debug\Microsoft.Xna.Framework.GamerServices.xml
 C:\Code\Gengine\bin\Debug\SharpDX.DXGI.xml
 C:\Code\Gengine\bin\Debug\Microsoft.Xna.Framework.xml
-=======
-C:\Code\Gengine\obj\Debug\Gengine.csprojResolveAssemblyReference.cache
 C:\Code\Gengine\obj\Debug\Gengine.dll
 C:\Code\Gengine\obj\Debug\Gengine.pdb
->>>>>>> 84157671f4e1e308def293f89e09677a69aa3621
