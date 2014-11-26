@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gengine.Commands;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Gengine.State {
@@ -30,12 +31,12 @@ namespace Gengine.State {
                 });
         }
 
-        public void HandleInput(string key) {
+        public void HandleCommands(CommandQueue commands) {
             if (stateStack.Count == 0)
                 return;
 
             var currentState = stateStack.Peek();
-            currentState.HandleInput(key);
+            currentState.HandleCommands(commands);
         }
 
         public void ChangeState() {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Gengine.Commands;
+using Microsoft.Xna.Framework.Input;
 
 namespace Gengine.Input {
     public class InputManager {
@@ -9,59 +10,39 @@ namespace Gengine.Input {
         private KeyboardState lastKeyBoardState;
         //private MouseState lastMouseState;
 
-        public string HandleInput() {
-            return HandleKeyPressed();
-            //lastMouseState = HandleMouse();
-        }
-
-        public string HandleRealTimeInput() {
-            string returnKey = string.Empty;
-            KeyboardState currentKeyBoardState = Keyboard.GetState();
-            if (currentKeyBoardState.IsKeyDown(Keys.Up)) {
-                returnKey = "Up";
-            }
-            if (currentKeyBoardState.IsKeyDown(Keys.Down)) {
-                returnKey = "Down";
-            }
-            if (currentKeyBoardState.IsKeyDown(Keys.Left)) {
-                returnKey = "Left";
-            }
-            if (currentKeyBoardState.IsKeyDown(Keys.Right)) {
-                returnKey = "Right";
-            }
-            return returnKey;
-        }
-
-        private string HandleKeyPressed() {
-            string returnKey = string.Empty;
+        public void HandleInput(CommandQueue commandQueue) {
+            commandQueue.Clear();
 
             KeyboardState currentKeyBoardState = Keyboard.GetState();
-            if (lastKeyBoardState.IsKeyDown(Keys.S) && currentKeyBoardState.IsKeyUp(Keys.S)) {
-                returnKey = "S";
-            }
-            if (lastKeyBoardState.IsKeyDown(Keys.G) && currentKeyBoardState.IsKeyUp(Keys.G)) {
-                returnKey = "G";
-            }
-            if (lastKeyBoardState.IsKeyDown(Keys.Space) && currentKeyBoardState.IsKeyUp(Keys.Space)) {
-                returnKey = "Space";
-            }
             if (lastKeyBoardState.IsKeyDown(Keys.Up) && currentKeyBoardState.IsKeyUp(Keys.Up)) {
-                returnKey = "Up";
+                commandQueue.QueueCommand("Up");
             }
             if (lastKeyBoardState.IsKeyDown(Keys.Down) && currentKeyBoardState.IsKeyUp(Keys.Down)) {
-                returnKey = "Down";
+                commandQueue.QueueCommand("Down");
             }
             if (lastKeyBoardState.IsKeyDown(Keys.Enter) && currentKeyBoardState.IsKeyUp(Keys.Enter)) {
-                returnKey = "Enter";
-            }
+                commandQueue.QueueCommand("Enter");
+            } 
             if (lastKeyBoardState.IsKeyDown(Keys.Escape) && currentKeyBoardState.IsKeyUp(Keys.Escape)) {
-                returnKey = "Escape";
+                commandQueue.QueueCommand("Escape");
             }
-
             lastKeyBoardState = currentKeyBoardState;
-
-            return returnKey;
         }
+
+        public void HandleRealTimeInput(CommandQueue commandQueue) {
+            KeyboardState currentKeyBoardState = Keyboard.GetState();
+
+            if (currentKeyBoardState.IsKeyDown(Keys.Left)) {
+                commandQueue.QueueCommand("Left");
+            }
+            if (currentKeyBoardState.IsKeyDown(Keys.Right)) {
+                commandQueue.QueueCommand("Right");
+            }
+            if (currentKeyBoardState.IsKeyDown(Keys.Space)) {
+                commandQueue.QueueCommand("Space");
+            }
+        }
+
         /*
         private MouseState HandleMouse() {
             MouseState currentMouseState = Mouse.GetState();

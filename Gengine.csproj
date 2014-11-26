@@ -41,12 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandQueue.cs" />
     <Compile Include="Entities\AnimationComponent.cs" />
     <Compile Include="Entities\EntityComponent.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\IEntityComponent.cs" />
+    <Compile Include="Entities\InputComponent.cs" />
     <Compile Include="Entities\IRenderable.cs" />
-    <Compile Include="Entities\PositionComponent.cs" />
+    <Compile Include="Entities\MovementComponent.cs" />
     <Compile Include="Entities\VisualComponent.cs" />
     <Compile Include="Events\BaseEvent.cs" />
     <Compile Include="Events\IEvent.cs" />

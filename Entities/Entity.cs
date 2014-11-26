@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Gengine.Entities {
     public abstract class Entity {
-        private readonly HashSet<IEntityComponent> components = new HashSet<IEntityComponent>();
+        private readonly List<IEntityComponent> components = new List<IEntityComponent>();
 
         public void AddComponent(IEntityComponent entityComponent) {
             entityComponent.SetRelation(this);
@@ -17,6 +17,12 @@ namespace Gengine.Entities {
         public void Update(float deltaTime) {
             foreach (IEntityComponent entityComponent in components) {
                 entityComponent.Update(deltaTime);
+            }
+        }
+
+        public void HandleCommand(string message) {
+            foreach (IEntityComponent entityComponent in components) {
+                entityComponent.HandleCommand(message);
             }
         }
     }
