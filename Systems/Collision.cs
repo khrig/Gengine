@@ -15,6 +15,9 @@ namespace Gengine.Systems {
             if (first == second)
                 return;
 
+            if(first.BoundingBox.Intersects(second.BoundingBox)) {
+                first.Collide(second);
+            }
         }
     }
 }
