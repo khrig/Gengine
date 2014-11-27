@@ -21,5 +21,7 @@ namespace Gengine.Examples
         public void Collide(ICollidable target) {
             throw new NotImplementedException();
         }
+
+        public Rectangle BoundingBox { get; private set; }
     }
 }
