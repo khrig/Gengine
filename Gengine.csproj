@@ -45,6 +45,7 @@
     <Compile Include="Entities\AnimationComponent.cs" />
     <Compile Include="Entities\EntityComponent.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\ICollidable.cs" />
     <Compile Include="Entities\IEntityComponent.cs" />
     <Compile Include="Entities\InputComponent.cs" />
     <Compile Include="Entities\IRenderable.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="State\State.cs" />
     <Compile Include="State\StateManager.cs" />
+    <Compile Include="Systems\Collision.cs" />
     <Compile Include="Systems\Renderer.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileMap.cs" />
