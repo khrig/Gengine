@@ -19,5 +19,6 @@ namespace Gengine {
         }
 
         public IEnumerable<IRenderable> Tiles { get { return tiles; } }
+        public IEnumerable<ICollidable> CollisionMap { get { return tiles; } }
     }
 }

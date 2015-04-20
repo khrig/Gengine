@@ -19,9 +19,13 @@ namespace Gengine.Examples
         public Rectangle SourceRectangle { get { return GetComponent<AnimationComponent>().SourceRectangle; } }
 
         public void Collide(ICollidable target) {
-            throw new NotImplementedException();
         }
 
         public Rectangle BoundingBox { get; private set; }
+
+        public string Identifier
+        {
+            get { return "player"; }
+        }
     }
 }
