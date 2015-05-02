@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Map\Layer.cs" />
     <Compile Include="TwoDWorld.cs" />
     <Compile Include="Commands\CommandQueue.cs" />
     <Compile Include="Entities\AnimationComponent.cs" />
@@ -65,8 +66,8 @@
     <Compile Include="State\StateManager.cs" />
     <Compile Include="Systems\CollisionSystem.cs" />
     <Compile Include="Systems\Renderer.cs" />
-    <Compile Include="Tile.cs" />
-    <Compile Include="TileMap.cs" />
+    <Compile Include="Map\Tile.cs" />
+    <Compile Include="Map\TileMap.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

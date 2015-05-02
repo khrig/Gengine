@@ -3,7 +3,7 @@ using Gengine.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Gengine {
+namespace Gengine.Map {
     public class TileMap {
         private List<Tile> tiles;
 
@@ -20,5 +20,9 @@ namespace Gengine {
 
         public IEnumerable<IRenderable> Tiles { get { return tiles; } }
         public IEnumerable<ICollidable> CollisionMap { get { return tiles; } }
+
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        public IList<Layer> Layers { get; private set; }
     }
 }
