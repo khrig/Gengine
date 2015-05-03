@@ -16,25 +16,24 @@ namespace Gengine.Map
             public int Index;
         }
 
-        public TileMap LoadMap(string fileName) {
+        public static TileMap ReadMapFile(string fileName, bool compressed = false) {
             IEnumerable<string> lines;
-            if (Compression.IsCompressed(fileName))
+            if (compressed)
                 lines = Compression.Decompress(fileName);
-            else 
+            else
                 lines = File.ReadAllLines(fileName);
 
             if (lines.Count() == 0)
                 return null;
 
             TileMap tileMap = ReadHeader(lines.First());
-            foreach (string line in lines.Skip(1))
-            {
+            foreach (string line in lines.Skip(1)) {
                 LayerInfo layerInfo = GetLayerInfo(line);
                 if (!tileMap.Layers.Any(l => l.Name == layerInfo.Name))
                     tileMap.Layers.Add(new Layer(layerInfo.Name, layerInfo.Index));
 
                 var layer = tileMap.Layers.First(l => l.Name == layerInfo.Name);
-                layer.Tiles.Add(GetTile(line));
+                layer.Tiles.Add(GetSprite(line));
             }
 
             return tileMap;
@@ -56,18 +55,49 @@ namespace Gengine.Map
             return t;
         }
 
-        private static Tile GetTile(string line) {
+        private static Tile GetSprite(string line) {
             string[] values = line.Split(COLUMNDELIMITER.ToCharArray());
 
-            Tile tile = new Tile(values[1], new Vector2(int.Parse(values[2].Split(',')[0]),
+            Tile sprite = new Tile(values[1], new Vector2(int.Parse(values[2].Split(',')[0]),
                 int.Parse(values[2].Split(',')[1])),
-                StringToRectangle(values[4]));
-            return tile;
+                StringToRectangle(values[3]));
+            return sprite;
         }
 
-        private static Rectangle StringToRectangle(string rectangle) {
+        private static Microsoft.Xna.Framework.Rectangle StringToRectangle(string rectangle) {
             string[] values = rectangle.Split(',');
-            return new Rectangle(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]), int.Parse(values[3]));
+            return new Microsoft.Xna.Framework.Rectangle(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]), int.Parse(values[3]));
+        }
+
+        public static void WriteMapFile(int width, int height, string fileName, IList<Layer> layers, bool compress = false) {
+            StringBuilder sb = new StringBuilder();
+
+            AppendHeader(sb, width, height);
+
+            foreach (Layer layer in layers) {
+                foreach (Tile tile in layer.Tiles) {
+                    WriteSpriteLine(sb, layer, tile);
+                }
+            }
+
+            if (!compress)
+                File.WriteAllText(fileName, sb.ToString());
+            else
+                Compression.Compress(fileName, sb.ToString());
+        }
+
+        private static void AppendHeader(StringBuilder sb, int width, int height) {
+            sb.AppendLine(string.Format("{0},{1}", width, height));
+        }
+
+        private static void WriteSpriteLine(StringBuilder sb, Layer layer, Tile tile) {
+            sb.AppendLine(string.Format("{1}{0}{2}{0}{3},{4}{0}{5}", COLUMNDELIMITER, layer.Serialize(), tile.TextureName, tile.Position.X, tile.Position.Y, RectangleToString(tile.SourceRectangle)));
+        }
+
+        private static string RectangleToString(Rectangle rect) {
+            if (rect != null)
+                return string.Format("{0},{1},{2},{3}", rect.X, rect.Y, rect.Width, rect.Height);
+            return string.Empty;
         }
     }
 }

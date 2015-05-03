@@ -11,7 +11,6 @@ namespace Gengine.Map {
             BoundingBox = new Rectangle((int)position.X, (int)position.Y, sourceRectangle.Width, sourceRectangle.Height);
         }
 
-        public string Name { get; set; }
         public string TextureName { get; private set; }
         public Vector2 Position { get; private set; }
         public Rectangle SourceRectangle { get; private set; }

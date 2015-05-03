@@ -7,7 +7,6 @@ namespace Gengine.Map {
     public class TileMap {
         private List<Tile> tiles;
 
-        // should probably load from file or something
         public TileMap(string environmentTextureName) {
             this.tiles = new List<Tile>();
 
