@@ -2,20 +2,23 @@
 using Gengine.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Gengine.Resources;
 
 namespace Gengine.Systems {
     public class RenderingSystem {
         private readonly SpriteBatch spriteBatch;
         private Texture2D pointTexture;
+        private IResourceManager _resourceManager;
 
-        public RenderingSystem(SpriteBatch batch) {
+        public RenderingSystem(IResourceManager resourceManager, SpriteBatch batch) {
             this.spriteBatch = batch;
+            _resourceManager = resourceManager;
         }
 
         public void Draw(IEnumerable<IRenderable> list) {
             foreach (IRenderable renderable in list) {
                 spriteBatch.Draw(
-                    renderable.Texture,
+                    _resourceManager.GetTexture(renderable.TextureName),
                     renderable.Position,
                     renderable.SourceRectangle,
                     Color.White);
