@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Map\IMapRepository.cs" />
     <Compile Include="Map\Layer.cs" />
     <Compile Include="Map\MapRepository.cs" />
     <Compile Include="TwoDWorld.cs" />
