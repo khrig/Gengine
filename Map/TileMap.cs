@@ -10,7 +10,7 @@ namespace Gengine.Map {
         public TileMap(string environmentTextureName) {
             this.tiles = new List<Tile>();
 
-            Vector2 groundPos = new Vector2(0, 480);
+            Vector2 groundPos = new Vector2(0, 328);
             for (int i = 1; i < 26; i++) {
                 tiles.Add(new Tile(environmentTextureName, groundPos, new Rectangle(0, 0, 32, 32)));
                 groundPos.X += 32;
