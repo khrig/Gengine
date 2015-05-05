@@ -11,9 +11,15 @@ namespace Gengine.Map
     public class MapRepository : IMapRepository {
         private static readonly string COLUMNDELIMITER = ";";
 
+        private bool useTitleContainer;
+
         private struct LayerInfo {
             public string Name;
             public int Index;
+        }
+
+        public MapRepository(bool useTitleContainer) {
+            this.useTitleContainer = useTitleContainer;
         }
 
         public TileMap LoadMap(string fileName, bool compressed = false) {
@@ -21,7 +27,7 @@ namespace Gengine.Map
             if (compressed)
                 lines = Compression.Decompress(fileName);
             else
-                lines = File.ReadAllLines(fileName);
+                lines = ReadLines(fileName);
 
             if (lines.Count() == 0)
                 return null;
@@ -30,13 +36,37 @@ namespace Gengine.Map
             foreach (string line in lines.Skip(1)) {
                 LayerInfo layerInfo = GetLayerInfo(line);
                 if (!tileMap.Layers.Any(l => l.Name == layerInfo.Name))
-                    tileMap.Layers.Add(new Layer(layerInfo.Name, layerInfo.Index));
+                    tileMap.AddLayer(new Layer(layerInfo.Name, layerInfo.Index));
 
                 var layer = tileMap.Layers.First(l => l.Name == layerInfo.Name);
                 layer.Tiles.Add(GetSprite(line));
             }
 
             return tileMap;
+        }
+
+        private IEnumerable<string> ReadLines(string fileName) {
+            IEnumerable<string> lines;
+            if (useTitleContainer)
+                lines = LoadFromContainer(fileName);
+            else
+                lines = File.ReadAllLines(fileName);
+            return lines;
+        }
+
+        private IEnumerable<string> LoadFromContainer(string fileName) {
+            try {
+                List<string> lines = new List<string>();
+                using (System.IO.Stream stream = TitleContainer.OpenStream(fileName)) {
+                    using (System.IO.StreamReader sreader = new System.IO.StreamReader(stream)) {
+                        while (!sreader.EndOfStream)
+                            lines.Add(sreader.ReadLine());
+                    }
+                }
+                return lines;
+            } catch (System.IO.FileNotFoundException e) {
+                throw;
+            }
         }
 
         public void WriteMap(int width, int height, string fileName, IList<Layer> layers, bool compress = false) {
