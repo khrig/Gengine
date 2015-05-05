@@ -64,7 +64,7 @@ namespace Gengine.Map
                     }
                 }
                 return lines;
-            } catch (System.IO.FileNotFoundException e) {
+            } catch (System.IO.FileNotFoundException) {
                 throw;
             }
         }
