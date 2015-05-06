@@ -24,7 +24,7 @@ namespace Gengine.Systems {
                     Color.White);
 
                 // DEBUG
-                DrawRectangle(spriteBatch, new Rectangle((int)renderable.Position.X, (int)renderable.Position.Y, renderable.SourceRectangle.Width, renderable.SourceRectangle.Height), 1, Color.Red);
+                //DrawRectangle(spriteBatch, new Rectangle((int)renderable.Position.X, (int)renderable.Position.Y, renderable.SourceRectangle.Width, renderable.SourceRectangle.Height), 1, Color.Red);
             }
         }
 
