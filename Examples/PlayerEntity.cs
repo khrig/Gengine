@@ -26,5 +26,9 @@ namespace Gengine.Examples
         {
             get { return "player"; }
         }
+
+        public Vector2 RenderPosition {
+            get { return Position; }
+        }
     }
 }

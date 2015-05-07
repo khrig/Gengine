@@ -6,40 +6,35 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Gengine.Map {
     public class TileMap {
-        private List<Tile> tiles;
         private List<Layer> _Layers;
-        public TileMap(string environmentTextureName) {
-            _Layers = new List<Layer>();
-            this.tiles = new List<Tile>();
 
-            Vector2 groundPos = new Vector2(0, 328);
-            for (int i = 1; i < 26; i++) {
-                tiles.Add(new Tile(environmentTextureName, groundPos, new Rectangle(0, 0, 32, 32)));
-                groundPos.X += 32;
-            }
-        }
+        public Tile[,] Tiles { get; set; }
+
+        private Tile NonSolidTile;
 
         public TileMap(int width, int height) {
             Width = width;
             Height = height;
             _Layers = new List<Layer>();
-
-            // TEMP
-            this.tiles = new List<Tile>();
-            Vector2 groundPos = new Vector2(0, 328);
-            for (int i = 1; i < 26; i++) {
-                tiles.Add(new Tile("", groundPos, new Rectangle(0, 0, 32, 32)));
-                groundPos.X += 32;
-            }
+            NonSolidTile = new Tile(null, new Vector2(-100, -100), new Rectangle(0, 0, 32, 32));
+            NonSolidTile.IsSolid = false;
         }
 
-        public IEnumerable<IRenderable> Tiles { 
+        public Tile PositionToTile(Vector2 position) {
+            return PositionToTile(position.X, position.Y);
+        }
+
+        private Tile PositionToTile(float x, float y) {
+            int tileX = (int)(x / 32);
+            int tileY = (int)(y / 32);
+            return Tiles[tileX, tileY];
+        }
+
+        public IEnumerable<IRenderable> RenderableTiles {
             get {
                 return _Layers.SelectMany(l => l.Tiles);
             } 
         }
-
-        public IEnumerable<ICollidable> CollisionMap { get { return tiles; } }
 
         public int Width { get; private set; }
         public int Height { get; private set; }
@@ -50,6 +45,44 @@ namespace Gengine.Map {
 
         public void AddLayer(Layer layer) {
             _Layers.Add(layer);
+        }
+
+        public void CreateCollisionLayer() {
+            int tileCountX = Width / 32;
+            int tileCountY = Height / 32;
+
+            // Temp, only gets one layer now (maybe collision layer?)
+            Tiles = new Tile[tileCountX, tileCountY];
+
+            for (int x = 0; x < tileCountX; x++) {
+                for (int y = 0; y < tileCountY; y++) {
+                    Tile tile = _Layers.SelectMany(l => l.Tiles).FirstOrDefault(t => t.Position.X == x * 32 && t.Position.Y == y * 32);
+                    if (tile == null) {
+                        Tiles[x, y] = new Tile(null, new Vector2(x, y), new Rectangle(0, 0, 32, 32), false);
+                    } else {
+                        tile.Position = new Vector2(x, y);
+                        Tiles[x, y] = tile;
+                    }
+                    //Tiles[x, y] = new Tile(string.Format("{0}:{1}", x * _tileSize, y * _tileSize)) {
+                    //    Position = new Vector2(x, y)
+                    //};
+
+                    /*
+                    if (x == 0 || x == gridSize.X - 1 || y == 0 || y == gridSize.Y - 1)
+                        Tiles[x, y].IsSolid = true;
+                    if (y == gridSize.Y - 2 && x == 5) {
+                        Tiles[x, y].IsSolid = true;
+                    }
+
+                    if (y == gridSize.Y - 4 && x == _gridSize.X - 3) {
+                        Tiles[x, y].IsSolid = true;
+                    }
+                    if (y == 4 && x >= 0 && x < 6) {
+                        Tiles[x, y].IsSolid = true;
+                    }
+                     * */
+                }
+            }
         }
     }
 }

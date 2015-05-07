@@ -19,7 +19,7 @@ namespace Gengine.Systems {
             foreach (IRenderable renderable in list) {
                 spriteBatch.Draw(
                     _resourceManager.GetTexture(renderable.TextureName),
-                    renderable.Position,
+                    renderable.RenderPosition,
                     renderable.SourceRectangle,
                     Color.White);
 
