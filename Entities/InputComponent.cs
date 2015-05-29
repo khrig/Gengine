@@ -7,6 +7,7 @@ namespace Gengine.Entities {
         private readonly ICommandFactory commandFactory;
         public InputComponent() {
             commandQueue = new CommandQueue();
+            commandFactory = new ComponentCommandFactory();
         }
 
         public override void Update(float deltaTime) {
@@ -31,7 +32,7 @@ namespace Gengine.Entities {
 
         private class ComponentCommandFactory : ICommandFactory {
             public ICommand CreateCommand(string name) {
-                throw new System.NotImplementedException();
+                return new Command(name);
             }
         }
     }
