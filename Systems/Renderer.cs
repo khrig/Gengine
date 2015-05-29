@@ -15,16 +15,20 @@ namespace Gengine.Systems {
             _resourceManager = resourceManager;
         }
 
-        public void Draw(IEnumerable<IRenderable> list) {
-            foreach (IRenderable renderable in list) {
-                spriteBatch.Draw(
-                    _resourceManager.GetTexture(renderable.TextureName),
-                    renderable.RenderPosition,
-                    renderable.SourceRectangle,
+        public void Draw(IRenderable renderTarget) {
+            spriteBatch.Draw(
+                    _resourceManager.GetTexture(renderTarget.TextureName),
+                    new Vector2((int)renderTarget.RenderPosition.X, (int)renderTarget.RenderPosition.Y),
+                    renderTarget.SourceRectangle,
                     Color.White);
 
-                // DEBUG
-                //DrawRectangle(spriteBatch, new Rectangle((int)renderable.Position.X, (int)renderable.Position.Y, renderable.SourceRectangle.Width, renderable.SourceRectangle.Height), 1, Color.Red);
+            // DEBUG
+            DrawRectangle(spriteBatch, new Rectangle((int)renderTarget.RenderPosition.X, (int)renderTarget.RenderPosition.Y, renderTarget.SourceRectangle.Width, renderTarget.SourceRectangle.Height), 1, Color.Red);
+        }
+
+        public void Draw(IEnumerable<IRenderable> list) {
+            foreach (IRenderable renderable in list) {
+                Draw(renderable);
             }
         }
 

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Gengine.Commands {
     public class CommandQueue {
-        private readonly Queue<string> commandQueue = new Queue<string>();
+        private readonly Queue<ICommand> commandQueue = new Queue<ICommand>();
 
-        public void QueueCommand(string command) {
+        public void QueueCommand(ICommand command) {
             commandQueue.Enqueue(command);
         }
 
@@ -19,7 +19,7 @@ namespace Gengine.Commands {
             return commandQueue.Count > 0;
         }
 
-        public string GetNext() {
+        public ICommand GetNext() {
             return commandQueue.Dequeue();
         }
     }

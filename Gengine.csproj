@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\ICommandFactory.cs" />
     <Compile Include="Map\IMapRepository.cs" />
     <Compile Include="Map\Layer.cs" />
     <Compile Include="Map\MapRepository.cs" />
@@ -76,6 +79,7 @@
     <Compile Include="Utils\Compression.cs" />
     <Compile Include="Resources\IResourceManager.cs" />
     <Compile Include="Resources\ResourceManager.cs" />
+    <Compile Include="Utils\FrameCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

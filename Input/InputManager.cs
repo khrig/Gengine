@@ -10,36 +10,39 @@ namespace Gengine.Input {
         private KeyboardState lastKeyBoardState;
         //private MouseState lastMouseState;
 
-        public void HandleInput(CommandQueue commandQueue) {
+        public void HandleInput(CommandQueue commandQueue, ICommandFactory commandFactory) {
             commandQueue.Clear();
 
             KeyboardState currentKeyBoardState = Keyboard.GetState();
             if (lastKeyBoardState.IsKeyDown(Keys.Up) && currentKeyBoardState.IsKeyUp(Keys.Up)) {
-                commandQueue.QueueCommand("Up");
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Up"));
             }
             if (lastKeyBoardState.IsKeyDown(Keys.Down) && currentKeyBoardState.IsKeyUp(Keys.Down)) {
-                commandQueue.QueueCommand("Down");
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Down"));
             }
             if (lastKeyBoardState.IsKeyDown(Keys.Enter) && currentKeyBoardState.IsKeyUp(Keys.Enter)) {
-                commandQueue.QueueCommand("Enter");
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Enter"));
             } 
             if (lastKeyBoardState.IsKeyDown(Keys.Escape) && currentKeyBoardState.IsKeyUp(Keys.Escape)) {
-                commandQueue.QueueCommand("Escape");
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Escape"));
+            }
+            if (lastKeyBoardState.IsKeyDown(Keys.P) && currentKeyBoardState.IsKeyUp(Keys.P)) {
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Pause"));
             }
             lastKeyBoardState = currentKeyBoardState;
         }
 
-        public void HandleRealTimeInput(CommandQueue commandQueue) {
+        public void HandleRealTimeInput(CommandQueue commandQueue, ICommandFactory commandFactory) {
             KeyboardState currentKeyBoardState = Keyboard.GetState();
 
             if (currentKeyBoardState.IsKeyDown(Keys.Left)) {
-                commandQueue.QueueCommand("Left");
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Left"));
             }
             if (currentKeyBoardState.IsKeyDown(Keys.Right)) {
-                commandQueue.QueueCommand("Right");
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Right"));
             }
             if (currentKeyBoardState.IsKeyDown(Keys.Space)) {
-                commandQueue.QueueCommand("Space");
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Space"));
             }
         }
 

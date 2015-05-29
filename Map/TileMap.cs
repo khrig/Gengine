@@ -24,7 +24,7 @@ namespace Gengine.Map {
             return PositionToTile(position.X, position.Y);
         }
 
-        private Tile PositionToTile(float x, float y) {
+        public Tile PositionToTile(float x, float y) {
             int tileX = (int)(x / 32);
             int tileY = (int)(y / 32);
             return Tiles[tileX, tileY];
