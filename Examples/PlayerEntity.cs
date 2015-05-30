@@ -35,8 +35,8 @@ namespace Gengine.Examples
             get { return RenderType.Sprite; }
         }
 
-        public string FontName {
-            get { throw new NotImplementedException(); }
-        }
+        public string FontName { get { throw new System.NotImplementedException(); } }
+        public string Text { get { throw new System.NotImplementedException(); } }
+        public Color Color { get { throw new System.NotImplementedException(); } }
     }
 }

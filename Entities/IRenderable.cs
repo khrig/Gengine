@@ -14,5 +14,7 @@ namespace Gengine.Entities {
         Vector2 RenderPosition { get; }
         Rectangle SourceRectangle { get; }
         string FontName { get; }
+        string Text { get; }
+        Color Color { get; }
     }
 }

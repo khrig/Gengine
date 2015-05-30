@@ -34,12 +34,11 @@ namespace Gengine.Systems {
                     }
                 default:
                     throw new ArgumentException(renderTarget.Type.ToString());
-                    break;
             }
         }
 
         private void DrawText(IRenderable renderTarget) {
-            throw new System.NotImplementedException();
+            spriteBatch.DrawString(_resourceManager.GetFont(renderTarget.FontName), renderTarget.Text, renderTarget.RenderPosition, renderTarget.Color);
         }
 
         private void DrawSprite(IRenderable renderTarget) {

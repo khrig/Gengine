@@ -28,8 +28,8 @@ namespace Gengine.Map {
             get { return new Vector2(Position.X * 32, Position.Y * 32); }
         }
 
-        public string FontName {
-            get { throw new System.NotImplementedException(); }
-        }
+        public string FontName { get { throw new System.NotImplementedException(); } }
+        public string Text { get { throw new System.NotImplementedException(); } }
+        public Color Color { get { throw new System.NotImplementedException(); } }
     }
 }
