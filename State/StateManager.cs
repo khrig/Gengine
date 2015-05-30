@@ -21,7 +21,11 @@ namespace Gengine.State {
         }
 
         public void PopState() {
-            _stateQueue.Enqueue(() => _stateStack.Pop());
+            _stateQueue.Enqueue(() =>
+            {
+                var state = _stateStack.Pop();
+                state.Unload();
+            });
         }
 
         public void PushState(string stateId) {
@@ -60,16 +64,29 @@ namespace Gengine.State {
         
         private void InitState(State state) {
             state.StateManager = this;
-            state.Init();
         }
 
         private readonly List<IRenderable> _renderTargets;
         public IEnumerable<IRenderable> GetRenderTargets() {
-            _renderTargets.Clear();
-            foreach (var state in _stateStack) {
-                _renderTargets.AddRange(state.GetRenderTargets());
-            }
             return _renderTargets;
+        }
+
+        public void AddRenderTarget(IRenderable renderTarget) {
+            _renderTargets.Add(renderTarget);
+        }
+
+        public void AddRenderTarget(IEnumerable<IRenderable> renderTargets) {
+            _renderTargets.AddRange(renderTargets);
+        }
+
+        public void UnregisterRenderTarget(IRenderable renderTarget) {
+            _renderTargets.Remove(renderTarget);
+        }
+
+        public void UnregisterRenderTarget(IEnumerable<IRenderable> renderTargets) {
+            foreach (var renderable in renderTargets) {
+                UnregisterRenderTarget(renderable);
+            }
         }
     }
 }
