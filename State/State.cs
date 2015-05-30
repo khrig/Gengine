@@ -28,7 +28,7 @@ namespace Gengine.State {
             StateManager.UnregisterRenderTarget(renderTargets);
         }
 
-        protected void SetTransformation(Matrix transformationMatrix) {
+        protected void SetTransformation(Matrix? transformationMatrix) {
             StateManager.SetTransformationMatrix(transformationMatrix);
         }
 

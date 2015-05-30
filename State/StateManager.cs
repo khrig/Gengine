@@ -96,7 +96,7 @@ namespace Gengine.State {
             return _transformationMatrix;
         }
 
-        public void SetTransformationMatrix(Matrix transformationMatrix) {
+        public void SetTransformationMatrix(Matrix? transformationMatrix) {
             _transformationMatrix = transformationMatrix;
         }
     }

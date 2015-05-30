@@ -6,24 +6,25 @@ namespace Gengine.Camera {
 
         public SimpleCamera2D(IWorld world) {
             _world = world;
-            Position = Vector2.Zero;
+            _position = Vector2.Zero;
             Zoom = 1f;
         }
 
         public void SetPosition(Vector2 position) {
-            var newPos = new Vector2(-(position.X - _world.View.Width / 2), -(position.Y - _world.View.Height / 2));
-            if (newPos.Y < 0)
-                newPos.Y = 0;
-            if (newPos.Y > 0)
-                newPos.Y = 0;
-            if (newPos.X > 0)
-                newPos.X = 0;
-            if (newPos.X < -_world.View.Width)
-                newPos.X = -_world.View.Width;
-            Position = newPos;
+            _position.X = -(position.X - _world.View.Width / 2);
+            _position.Y = -(position.Y - _world.View.Height / 2);
+            if (_position.Y < 0)
+                _position.Y = 0;
+            if (_position.Y > 0)
+                _position.Y = 0;
+            if (_position.X > 0)
+                _position.X = 0;
+            if (_position.X < -_world.View.Width)
+                _position.X = -_world.View.Width;
         }
 
-        public Vector2 Position { get; private set; }
+        private Vector2 _position;
+        public Vector2 Position { get { return _position; } }
         public float Rotation { get; private set; }
         public float Zoom { get; private set; }
 
