@@ -1,5 +1,7 @@
 ﻿using Gengine.Commands;
+using Gengine.Entities;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace Gengine.State {
     public abstract class State {
@@ -15,5 +17,6 @@ namespace Gengine.State {
         public abstract bool Draw(SpriteBatch spriteBatch);
         public abstract void HandleCommands(CommandQueue commandQueue);
         public abstract void Init();
+        public abstract IEnumerable<IRenderable> GetRenderTargets();
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Gengine.Commands;
 using Microsoft.Xna.Framework.Graphics;
+using Gengine.Entities;
 
 namespace Gengine.State {
     public class StateManager {
@@ -13,6 +14,7 @@ namespace Gengine.State {
         public StateManager() {
             stateStack = new Stack<State>();
             stateQueue = new Queue<Action>();
+            _renderTargets = new List<IRenderable>();
         }
 
         public void Add(string stateId, State state) {
@@ -68,6 +70,15 @@ namespace Gengine.State {
         private void InitState(State state) {
             state.StateManager = this;
             state.Init();
+        }
+
+        private List<IRenderable> _renderTargets;
+        public IEnumerable<IRenderable> GetRenderTargets() {
+            _renderTargets.Clear();
+            foreach (var state in stateStack) {
+                _renderTargets.AddRange(state.GetRenderTargets());
+            }
+            return _renderTargets;
         }
     }
 }

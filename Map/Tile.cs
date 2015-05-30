@@ -12,6 +12,7 @@ namespace Gengine.Map {
             IsSolid = solid;
         }
 
+        public RenderType Type { get { return RenderType.Sprite; } }
         public string TextureName { get; private set; }
         public Vector2 Position { get; set; }
         public Rectangle SourceRectangle { get; private set; }
@@ -25,6 +26,10 @@ namespace Gengine.Map {
 
         public Vector2 RenderPosition {
             get { return new Vector2(Position.X * 32, Position.Y * 32); }
+        }
+
+        public string FontName {
+            get { throw new System.NotImplementedException(); }
         }
     }
 }

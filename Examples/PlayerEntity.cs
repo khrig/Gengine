@@ -30,5 +30,13 @@ namespace Gengine.Examples
         public Vector2 RenderPosition {
             get { return Position; }
         }
+
+        public RenderType Type {
+            get { return RenderType.Sprite; }
+        }
+
+        public string FontName {
+            get { throw new NotImplementedException(); }
+        }
     }
 }
