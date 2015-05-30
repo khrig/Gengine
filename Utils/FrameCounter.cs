@@ -1,38 +1,37 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Gengine.Resources;
 
 namespace Gengine.Utils {
     public class FrameCounter {
-        SpriteFont font;
-        int frameRate = 0;
-        int frameCounter = 0;
-        TimeSpan elapsedTime = TimeSpan.Zero;
-        Vector2 position;
+        int _frameRate;
+        int _frameCounter;
+        TimeSpan _elapsedTime = TimeSpan.Zero;
+        private readonly IResourceManager _resourceManager;
+        private readonly string _fontName;
+        readonly Vector2 _position;
 
-        public FrameCounter(SpriteFont font, Vector2 position) {
-            this.font = font;
-            this.position = position;
+        public FrameCounter(IResourceManager resourceManager, string fontName, Vector2 position) {
+            _resourceManager = resourceManager;
+            _fontName = fontName;
+            _position = position;
         }
 
         public void Update(GameTime gameTime) {
-            elapsedTime += gameTime.ElapsedGameTime;
+            _elapsedTime += gameTime.ElapsedGameTime;
 
-            if (elapsedTime > TimeSpan.FromSeconds(1)) {
-                elapsedTime -= TimeSpan.FromSeconds(1);
-                frameRate = frameCounter;
-                frameCounter = 0;
-            }
+            if (_elapsedTime <= TimeSpan.FromSeconds(1)) return;
+            _elapsedTime -= TimeSpan.FromSeconds(1);
+            _frameRate = _frameCounter;
+            _frameCounter = 0;
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            frameCounter++;
-            string fps = string.Format("fps: {0}", frameRate);
+            _frameCounter++;
+            var fps = string.Format("fps: {0}", _frameRate);
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, fps, position, Color.White);
+            spriteBatch.DrawString(_resourceManager.GetFont(_fontName), fps, _position, Color.White);
             spriteBatch.End();
         }
     }
