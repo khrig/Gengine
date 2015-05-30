@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using Gengine.Commands;
 using Gengine.Entities;
+using Microsoft.Xna.Framework;
 
 namespace Gengine.State {
     public class StateManager {
         private readonly Stack<State> _stateStack;
         private readonly Queue<Action> _stateQueue;
         private readonly Dictionary<string, State> _availableStates = new Dictionary<string, State>();
+
+        private readonly List<IRenderable> _renderTargets;
+        private Matrix? _transformationMatrix;
 
         public StateManager() {
             _stateStack = new Stack<State>();
@@ -66,7 +70,6 @@ namespace Gengine.State {
             state.StateManager = this;
         }
 
-        private readonly List<IRenderable> _renderTargets;
         public IEnumerable<IRenderable> GetRenderTargets() {
             return _renderTargets;
         }
@@ -87,6 +90,14 @@ namespace Gengine.State {
             foreach (var renderable in renderTargets) {
                 UnregisterRenderTarget(renderable);
             }
+        }
+
+        public Matrix? GetRenderTransformation() {
+            return _transformationMatrix;
+        }
+
+        public void SetTransformationMatrix(Matrix transformationMatrix) {
+            _transformationMatrix = transformationMatrix;
         }
     }
 }

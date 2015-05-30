@@ -7,7 +7,7 @@ using System;
 
 namespace Gengine.Systems {
     public class RenderingSystem {
-        private readonly SpriteBatch spriteBatch;
+        private readonly SpriteBatch _spriteBatch;
         private Texture2D pointTexture;
         private IResourceManager _resourceManager;
         private RenderTarget2D _renderTarget;
@@ -15,7 +15,7 @@ namespace Gengine.Systems {
         private int _windowHeight;
 
         public RenderingSystem(IResourceManager resourceManager, SpriteBatch batch, RenderTarget2D renderTarget, int windowWidth, int windowHeight) {
-            this.spriteBatch = batch;
+            _spriteBatch = batch;
             _resourceManager = resourceManager;
             _renderTarget = renderTarget;
             _windowWidth = windowWidth;
@@ -38,17 +38,17 @@ namespace Gengine.Systems {
         }
 
         private void DrawText(IRenderable renderTarget) {
-            spriteBatch.DrawString(_resourceManager.GetFont(renderTarget.FontName), renderTarget.Text, renderTarget.RenderPosition, renderTarget.Color);
+            _spriteBatch.DrawString(_resourceManager.GetFont(renderTarget.FontName), renderTarget.Text, renderTarget.RenderPosition, renderTarget.Color);
         }
 
         private void DrawSprite(IRenderable renderTarget) {
-            spriteBatch.Draw(
+            _spriteBatch.Draw(
                 _resourceManager.GetTexture(renderTarget.TextureName),
                 new Vector2((int)renderTarget.RenderPosition.X, (int)renderTarget.RenderPosition.Y),
                 renderTarget.SourceRectangle,
                 Color.White);
             // DEBUG
-            DrawRectangle(spriteBatch, new Rectangle((int)renderTarget.RenderPosition.X, (int)renderTarget.RenderPosition.Y, renderTarget.SourceRectangle.Width, renderTarget.SourceRectangle.Height), 1, Color.Red);
+            DrawRectangle(_spriteBatch, new Rectangle((int)renderTarget.RenderPosition.X, (int)renderTarget.RenderPosition.Y, renderTarget.SourceRectangle.Width, renderTarget.SourceRectangle.Height), 1, Color.Red);
         }
 
         public void Draw(IEnumerable<IRenderable> list) {
@@ -59,7 +59,7 @@ namespace Gengine.Systems {
 
         public void DrawRectangle(SpriteBatch batch, Rectangle area, int width, Color color) {
             if(pointTexture == null) {
-                pointTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                pointTexture = new Texture2D(_spriteBatch.GraphicsDevice, 1, 1);
                 pointTexture.SetData<Color>(new Color[] { Color.Red });
             }
 
@@ -69,22 +69,22 @@ namespace Gengine.Systems {
             batch.Draw(pointTexture, new Rectangle(area.X, area.Y + area.Height - width, area.Width, width), color);
         }
 
-        public void DrawWithRenderTarget(GraphicsDeviceManager graphics, IEnumerable<IRenderable> targets) {
+        public void DrawWithRenderTarget(IEnumerable<IRenderable> targets, Matrix? transformMatrix) {
             // Set the device to the render target
-            graphics.GraphicsDevice.SetRenderTarget(_renderTarget);
-            graphics.GraphicsDevice.Clear(Color.Black);
+            _spriteBatch.GraphicsDevice.SetRenderTarget(_renderTarget);
+            _spriteBatch.GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, transformMatrix);
             //stateManager.Draw(spriteBatch);
             Draw(targets);
-            spriteBatch.End();
+            _spriteBatch.End();
 
             // Reset the device to the back buffer
-            graphics.GraphicsDevice.SetRenderTarget(null);
+            _spriteBatch.GraphicsDevice.SetRenderTarget(null);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
-            spriteBatch.Draw((Texture2D)_renderTarget, new Rectangle(0, 0, _windowWidth, _windowHeight), Color.White);
-            spriteBatch.End();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
+            _spriteBatch.Draw((Texture2D)_renderTarget, new Rectangle(0, 0, _windowWidth, _windowHeight), Color.White);
+            _spriteBatch.End();
         }
     }
 }

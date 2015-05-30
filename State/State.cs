@@ -1,6 +1,7 @@
 ﻿using Gengine.Commands;
 using Gengine.Entities;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace Gengine.State {
     public abstract class State {
@@ -25,6 +26,10 @@ namespace Gengine.State {
 
         protected void UnregisterRenderTarget(IEnumerable<IRenderable> renderTargets) {
             StateManager.UnregisterRenderTarget(renderTargets);
+        }
+
+        protected void SetTransformation(Matrix transformationMatrix) {
+            StateManager.SetTransformationMatrix(transformationMatrix);
         }
 
         // the bool return value marks if its fall through or not
