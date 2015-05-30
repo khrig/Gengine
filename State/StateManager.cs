@@ -1,81 +1,72 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using Gengine.Commands;
-using Microsoft.Xna.Framework.Graphics;
 using Gengine.Entities;
 
 namespace Gengine.State {
     public class StateManager {
-        private readonly Stack<State> stateStack;
-        private readonly Queue<Action> stateQueue;
-        private readonly Dictionary<string, State> availableStates = new Dictionary<string, State>();
+        private readonly Stack<State> _stateStack;
+        private readonly Queue<Action> _stateQueue;
+        private readonly Dictionary<string, State> _availableStates = new Dictionary<string, State>();
 
         public StateManager() {
-            stateStack = new Stack<State>();
-            stateQueue = new Queue<Action>();
+            _stateStack = new Stack<State>();
+            _stateQueue = new Queue<Action>();
             _renderTargets = new List<IRenderable>();
         }
 
         public void Add(string stateId, State state) {
             InitState(state);
-            availableStates.Add(stateId, state);
+            _availableStates.Add(stateId, state);
         }
 
         public void PopState() {
-            stateQueue.Enqueue(() => stateStack.Pop());
+            _stateQueue.Enqueue(() => _stateStack.Pop());
         }
 
         public void PushState(string stateId) {
-            if (availableStates.ContainsKey(stateId))
-                stateQueue.Enqueue(() => {
-                    availableStates[stateId].Init();
-                    stateStack.Push(availableStates[stateId]);
+            if (_availableStates.ContainsKey(stateId))
+                _stateQueue.Enqueue(() => {
+                    _availableStates[stateId].Init();
+                    _stateStack.Push(_availableStates[stateId]);
                 });
         }
 
         public void HandleCommands(CommandQueue commands) {
-            if (stateStack.Count == 0)
+            if (_stateStack.Count == 0)
                 return;
 
-            var currentState = stateStack.Peek();
+            var currentState = _stateStack.Peek();
             currentState.HandleCommands(commands);
         }
 
         public void ChangeState() {
-            while (stateQueue.Count != 0) {
-                var action = stateQueue.Dequeue();
+            while (_stateQueue.Count != 0) {
+                var action = _stateQueue.Dequeue();
                 action();
             }
         }
 
         public bool IsEmpty() {
-            return stateStack.Count == 0;
+            return _stateStack.Count == 0;
         }
 
         public void Update(float deltaTime) {
-            foreach (var state in stateStack) {
+            foreach (var state in _stateStack) {
                 if (!state.Update(deltaTime))
                     return;
             }
         }
-
-        public void Draw(SpriteBatch spriteBatch) {
-            foreach (var state in stateStack) {
-                if (!state.Draw(spriteBatch))
-                    return;
-            }
-        }
-
+        
         private void InitState(State state) {
             state.StateManager = this;
             state.Init();
         }
 
-        private List<IRenderable> _renderTargets;
+        private readonly List<IRenderable> _renderTargets;
         public IEnumerable<IRenderable> GetRenderTargets() {
             _renderTargets.Clear();
-            foreach (var state in stateStack) {
+            foreach (var state in _stateStack) {
                 _renderTargets.AddRange(state.GetRenderTargets());
             }
             return _renderTargets;

@@ -1,6 +1,5 @@
 ﻿using Gengine.Commands;
 using Gengine.Entities;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace Gengine.State {
@@ -14,7 +13,6 @@ namespace Gengine.State {
 
         // the bool return value marks if its fall through or not
         public abstract bool Update(float deltaTime);
-        public abstract bool Draw(SpriteBatch spriteBatch);
         public abstract void HandleCommands(CommandQueue commandQueue);
         public abstract void Init();
         public abstract IEnumerable<IRenderable> GetRenderTargets();

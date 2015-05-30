@@ -1,17 +1,16 @@
-﻿using Gengine.Utils;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Gengine.Utils;
+using Microsoft.Xna.Framework;
 
 namespace Gengine.Map
 {
     public class MapRepository : IMapRepository {
         private static readonly string COLUMNDELIMITER = ";";
 
-        private bool useTitleContainer;
+        private readonly bool _useTitleContainer;
 
         private struct LayerInfo {
             public string Name;
@@ -19,7 +18,7 @@ namespace Gengine.Map
         }
 
         public MapRepository(bool useTitleContainer) {
-            this.useTitleContainer = useTitleContainer;
+            _useTitleContainer = useTitleContainer;
         }
 
         public TileMap LoadMap(string fileName, bool compressed = false) {
@@ -29,10 +28,10 @@ namespace Gengine.Map
             else
                 lines = ReadLines(fileName);
 
-            if (lines.Count() == 0)
+            if (!lines.Any())
                 return null;
 
-            TileMap tileMap = ReadHeader(lines.First());
+            var tileMap = ReadHeader(lines.First());
             foreach (string line in lines.Skip(1)) {
                 LayerInfo layerInfo = GetLayerInfo(line);
                 if (!tileMap.Layers.Any(l => l.Name == layerInfo.Name))
@@ -46,36 +45,28 @@ namespace Gengine.Map
         }
 
         private IEnumerable<string> ReadLines(string fileName) {
-            IEnumerable<string> lines;
-            if (useTitleContainer)
-                lines = LoadFromContainer(fileName);
-            else
-                lines = File.ReadAllLines(fileName);
+            var lines = _useTitleContainer ? LoadFromContainer(fileName) : File.ReadAllLines(fileName);
             return lines;
         }
 
         private IEnumerable<string> LoadFromContainer(string fileName) {
-            try {
-                List<string> lines = new List<string>();
-                using (System.IO.Stream stream = TitleContainer.OpenStream(fileName)) {
-                    using (System.IO.StreamReader sreader = new System.IO.StreamReader(stream)) {
-                        while (!sreader.EndOfStream)
-                            lines.Add(sreader.ReadLine());
-                    }
+            var lines = new List<string>();
+            using (var stream = TitleContainer.OpenStream(fileName)) {
+                using (var sreader = new StreamReader(stream)) {
+                    while (!sreader.EndOfStream)
+                        lines.Add(sreader.ReadLine());
                 }
-                return lines;
-            } catch (System.IO.FileNotFoundException) {
-                throw;
             }
+            return lines;
         }
 
         public void WriteMap(int width, int height, string fileName, IList<Layer> layers, bool compress = false) {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             AppendHeader(sb, width, height);
 
-            foreach (Layer layer in layers) {
-                foreach (Tile tile in layer.Tiles) {
+            foreach (var layer in layers) {
+                foreach (var tile in layer.Tiles) {
                     WriteSpriteLine(sb, layer, tile);
                 }
             }
@@ -111,9 +102,9 @@ namespace Gengine.Map
             return sprite;
         }
 
-        private Microsoft.Xna.Framework.Rectangle StringToRectangle(string rectangle) {
+        private Rectangle StringToRectangle(string rectangle) {
             string[] values = rectangle.Split(',');
-            return new Microsoft.Xna.Framework.Rectangle(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]), int.Parse(values[3]));
+            return new Rectangle(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]), int.Parse(values[3]));
         }
 
         private void AppendHeader(StringBuilder sb, int width, int height) {
