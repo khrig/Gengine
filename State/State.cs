@@ -12,6 +12,12 @@ namespace Gengine.State {
             World = world;
         }
 
+        // the bool return value marks if its fall through or not
+        public abstract bool Update(float deltaTime);
+        public abstract void Init();
+        public abstract void Unload();
+        public abstract void HandleCommands(CommandQueue commandQueue);
+
         protected void RegisterRenderTarget(IRenderable renderTarget) {
             StateManager.AddRenderTarget(renderTarget);
         }
@@ -31,11 +37,5 @@ namespace Gengine.State {
         protected void SetTransformation(Matrix? transformationMatrix) {
             StateManager.SetTransformationMatrix(transformationMatrix);
         }
-
-        // the bool return value marks if its fall through or not
-        public abstract bool Update(float deltaTime);
-        public abstract void HandleCommands(CommandQueue commandQueue);
-        public abstract void Init();
-        public abstract void Unload();
     }
 }
