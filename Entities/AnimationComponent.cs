@@ -10,7 +10,7 @@ namespace Gengine.Entities {
         }
 
         public override void Update(float deltaTime) {
-            base.Update(deltaTime);
+
         }
 
         public string TextureName { get; set; }
