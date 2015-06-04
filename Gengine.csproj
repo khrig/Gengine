@@ -54,7 +54,6 @@
     <Compile Include="Map\MapRepository.cs" />
     <Compile Include="TwoDWorld.cs" />
     <Compile Include="Commands\CommandQueue.cs" />
-    <Compile Include="Entities\AnimationComponent.cs" />
     <Compile Include="Entities\EntityComponent.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\ICollidable.cs" />

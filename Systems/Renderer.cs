@@ -27,14 +27,14 @@ namespace Gengine.Systems {
             _spriteBatch.GraphicsDevice.SetRenderTarget(_renderTarget);
             _spriteBatch.GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, transformMatrix);
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, transformMatrix);
             Draw(targets);
             _spriteBatch.End();
 
             // Reset the device to the back buffer
             _spriteBatch.GraphicsDevice.SetRenderTarget(null);
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
             _spriteBatch.Draw(_renderTarget, new Rectangle(0, 0, _windowWidth, _windowHeight), Color.White);
             _spriteBatch.End();
         }

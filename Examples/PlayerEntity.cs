@@ -6,16 +6,15 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Gengine.Examples
 {
     public class PlayerEntity : Entity, IRenderable, ICollidable {
-        public PlayerEntity(InputComponent input, MovementComponent movement, AnimationComponent animation) {
+        public PlayerEntity(InputComponent input, MovementComponent movement) {
             // Order matters
             AddComponent(input);
             AddComponent(movement);
-            AddComponent(animation);
         }
 
-        public string TextureName { get { return GetComponent<AnimationComponent>().TextureName; } }
+        public string TextureName { get { return null; } }
         public Vector2 Position { get { return GetComponent<MovementComponent>().Position; } }
-        public Rectangle SourceRectangle { get { return GetComponent<AnimationComponent>().SourceRectangle; } }
+        public Rectangle SourceRectangle { get { return new Rectangle(0,0,0,0); } }
 
         public void Collide(ICollidable target) {
         }

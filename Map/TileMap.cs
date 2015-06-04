@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Gengine.Entities;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Gengine.Map {
     public class TileMap {
