@@ -81,6 +81,7 @@
     <Compile Include="Resources\IResourceManager.cs" />
     <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Utils\FrameCounter.cs" />
+    <Compile Include="Utils\PerformanceCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
