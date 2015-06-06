@@ -32,6 +32,15 @@ namespace Gengine.State {
             });
         }
 
+        public void ClearStates() {
+            _stateQueue.Enqueue(() => {
+                while (_stateStack.Count != 0){
+                    var state = _stateStack.Pop();
+                    state.Unload();
+                }
+            });
+        }
+
         public void PushState(string stateId) {
             if (_availableStates.ContainsKey(stateId))
                 _stateQueue.Enqueue(() => {

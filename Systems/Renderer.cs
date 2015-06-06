@@ -26,8 +26,7 @@ namespace Gengine.Systems {
             // Set the device to the render target
             _spriteBatch.GraphicsDevice.SetRenderTarget(_renderTarget);
             _spriteBatch.GraphicsDevice.Clear(Color.Black);
-
-            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, transformMatrix);
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, transformMatrix);
             Draw(targets);
             _spriteBatch.End();
 

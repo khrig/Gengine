@@ -29,6 +29,9 @@ namespace Gengine.Input {
             if (lastKeyBoardState.IsKeyDown(Keys.P) && currentKeyBoardState.IsKeyUp(Keys.P)) {
                 commandQueue.QueueCommand(commandFactory.CreateCommand("Pause"));
             }
+            if (lastKeyBoardState.IsKeyDown(Keys.U) && currentKeyBoardState.IsKeyUp(Keys.U)) {
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Debug"));
+            }
             lastKeyBoardState = currentKeyBoardState;
         }
 
