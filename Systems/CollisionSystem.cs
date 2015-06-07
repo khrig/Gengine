@@ -11,6 +11,10 @@ namespace Gengine.Systems {
             }
         }
 
+        public void HandleCollision(ICollidable first, ICollidable second) {
+            TestCollision(first, second);
+        }
+
         private void TestCollision(ICollidable first, ICollidable second) {
             if (first == second)
                 return;
