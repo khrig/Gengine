@@ -17,22 +17,7 @@ namespace Gengine.State {
         public abstract void Init();
         public abstract void Unload();
         public abstract void HandleCommands(CommandQueue commandQueue);
-
-        protected void RegisterRenderTarget(IRenderable renderTarget) {
-            StateManager.AddRenderTarget(renderTarget);
-        }
-
-        protected void RegisterRenderTarget(IEnumerable<IRenderable> renderTargets) {
-            StateManager.AddRenderTarget(renderTargets);
-        }
-
-        protected void UnregisterRenderTarget(IRenderable renderTarget) {
-            StateManager.UnregisterRenderTarget(renderTarget);
-        }
-
-        protected void UnregisterRenderTarget(IEnumerable<IRenderable> renderTargets) {
-            StateManager.UnregisterRenderTarget(renderTargets);
-        }
+        public abstract IEnumerable<IRenderable> GetRenderTargets();
 
         protected void SetTransformation(Matrix? transformationMatrix) {
             StateManager.SetTransformationMatrix(transformationMatrix);

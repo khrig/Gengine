@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Gengine.Commands;
 using Gengine.Entities;
 using Microsoft.Xna.Framework;
@@ -79,28 +80,10 @@ namespace Gengine.State {
             state.StateManager = this;
         }
 
-        public IEnumerable<IRenderable> GetRenderTargets() {
-            return _renderTargets;
+        public IEnumerable<IRenderable> GetRenderTargets(){
+            return _stateStack.SelectMany(state => state.GetRenderTargets());
         }
-
-        public void AddRenderTarget(IRenderable renderTarget) {
-            _renderTargets.Add(renderTarget);
-        }
-
-        public void AddRenderTarget(IEnumerable<IRenderable> renderTargets) {
-            _renderTargets.AddRange(renderTargets);
-        }
-
-        public void UnregisterRenderTarget(IRenderable renderTarget) {
-            _renderTargets.Remove(renderTarget);
-        }
-
-        public void UnregisterRenderTarget(IEnumerable<IRenderable> renderTargets) {
-            foreach (var renderable in renderTargets) {
-                UnregisterRenderTarget(renderable);
-            }
-        }
-
+        
         public Matrix? GetRenderTransformation() {
             return _transformationMatrix;
         }
