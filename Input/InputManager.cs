@@ -38,14 +38,17 @@ namespace Gengine.Input {
         public void HandleRealTimeInput(CommandQueue commandQueue, ICommandFactory commandFactory) {
             KeyboardState currentKeyBoardState = Keyboard.GetState();
 
-            if (currentKeyBoardState.IsKeyDown(Keys.Left)) {
+            if (currentKeyBoardState.IsKeyDown(Keys.Left) || currentKeyBoardState.IsKeyDown(Keys.A)) {
                 commandQueue.QueueCommand(commandFactory.CreateCommand("Left"));
             }
-            if (currentKeyBoardState.IsKeyDown(Keys.Right)) {
+            if (currentKeyBoardState.IsKeyDown(Keys.Right) || currentKeyBoardState.IsKeyDown(Keys.D)) {
                 commandQueue.QueueCommand(commandFactory.CreateCommand("Right"));
             }
             if (currentKeyBoardState.IsKeyDown(Keys.Space)) {
-                commandQueue.QueueCommand(commandFactory.CreateCommand("Space"));
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Shoot"));
+            }
+            if (currentKeyBoardState.IsKeyDown(Keys.W)) {
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Jump"));
             }
         }
 

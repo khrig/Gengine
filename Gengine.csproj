@@ -49,6 +49,7 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ICommandFactory.cs" />
+    <Compile Include="Events\GameEvent.cs" />
     <Compile Include="Map\IMapRepository.cs" />
     <Compile Include="Map\Layer.cs" />
     <Compile Include="Map\MapRepository.cs" />
