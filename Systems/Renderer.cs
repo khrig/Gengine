@@ -22,7 +22,7 @@ namespace Gengine.Systems {
             _windowHeight = windowHeight;
         }
 
-        public void DrawWithRenderTarget(IEnumerable<IRenderable> targets, Matrix? transformMatrix) {
+        public void DrawWithRenderTarget(IEnumerable<IRenderable> targets, Matrix? transformMatrix, Color color) {
             // Set the device to the render target
             _spriteBatch.GraphicsDevice.SetRenderTarget(_renderTarget);
             _spriteBatch.GraphicsDevice.Clear(Color.Black);
@@ -34,7 +34,7 @@ namespace Gengine.Systems {
             _spriteBatch.GraphicsDevice.SetRenderTarget(null);
 
             _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
-            _spriteBatch.Draw(_renderTarget, new Rectangle(0, 0, _windowWidth, _windowHeight), Color.White);
+            _spriteBatch.Draw(_renderTarget, new Rectangle(0, 0, _windowWidth, _windowHeight), color);
             _spriteBatch.End();
         }
 

@@ -5,18 +5,14 @@ using Microsoft.Xna.Framework;
 
 namespace Gengine.Map {
     public class TileMap {
-        private List<Layer> _Layers;
+        private readonly List<Layer> _layers;
 
         public Tile[,] Tiles { get; set; }
-
-        private Tile NonSolidTile;
 
         public TileMap(int width, int height) {
             Width = width;
             Height = height;
-            _Layers = new List<Layer>();
-            NonSolidTile = new Tile(null, new Vector2(-100, -100), new Rectangle(0, 0, 32, 32));
-            NonSolidTile.IsSolid = false;
+            _layers = new List<Layer>();
         }
 
         public Tile PositionToTile(Vector2 position) {
@@ -31,19 +27,19 @@ namespace Gengine.Map {
 
         public IEnumerable<IRenderable> RenderableTiles {
             get {
-                return _Layers.SelectMany(l => l.Tiles);
+                return _layers.SelectMany(l => l.Tiles);
             } 
         }
 
         public int Width { get; private set; }
         public int Height { get; private set; }
         public IEnumerable<Layer> Layers { get {
-                return _Layers;
+                return _layers;
             }
         }
 
         public void AddLayer(Layer layer) {
-            _Layers.Add(layer);
+            _layers.Add(layer);
         }
 
         public void CreateCollisionLayer() {
@@ -55,7 +51,7 @@ namespace Gengine.Map {
 
             for (int x = 0; x < tileCountX; x++) {
                 for (int y = 0; y < tileCountY; y++) {
-                    Tile tile = _Layers.SelectMany(l => l.Tiles).FirstOrDefault(t => t.Position.X == x * 32 && t.Position.Y == y * 32);
+                    Tile tile = _layers.SelectMany(l => l.Tiles).FirstOrDefault(t => t.Position.X == x * 32 && t.Position.Y == y * 32);
                     if (tile == null) {
                         Tiles[x, y] = new Tile(null, new Vector2(x, y), new Rectangle(0, 0, 32, 32), false);
                     } else {

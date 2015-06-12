@@ -11,13 +11,13 @@ namespace Gengine.State {
         private readonly Queue<Action> _stateQueue;
         private readonly Dictionary<string, State> _availableStates = new Dictionary<string, State>();
 
-        private readonly List<IRenderable> _renderTargets;
         private Matrix? _transformationMatrix;
+        private Color _color;
 
         public StateManager() {
             _stateStack = new Stack<State>();
             _stateQueue = new Queue<Action>();
-            _renderTargets = new List<IRenderable>();
+            _color = Color.White;
         }
 
         public void Add(string stateId, State state) {
@@ -90,6 +90,14 @@ namespace Gengine.State {
 
         public void SetTransformationMatrix(Matrix? transformationMatrix) {
             _transformationMatrix = transformationMatrix;
+        }
+
+        public void SetColor(Color color){
+            _color = color;
+        }
+
+        public Color GetRenderColor() {
+            return _color;
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace Gengine.Entities {
     public class MovementComponent : EntityComponent {
         public Vector2 Position { get; private set; }
-        private Vector2 velocity;
+        private Vector2 _velocity;
         public float Direction { get; set; }
         public bool IsOnGround { get; set; }
 
@@ -14,20 +14,20 @@ namespace Gengine.Entities {
 
         public MovementComponent(Vector2 position) {
             Position = position;
-            velocity = new Vector2();
+            _velocity = new Vector2();
         }
 
         public override void Update(float deltaTime) {
-            velocity.X += Direction * MoveAcceleration * deltaTime;
-            velocity.X = MathHelper.Clamp(velocity.X, -MaxMoveSpeed, MaxMoveSpeed);
-            velocity.X *= GroundDragFactor;
+            _velocity.X += Direction * MoveAcceleration * deltaTime;
+            _velocity.X = MathHelper.Clamp(_velocity.X, -MaxMoveSpeed, MaxMoveSpeed);
+            _velocity.X *= GroundDragFactor;
 
             if (!IsOnGround)
-                velocity.Y += Gravity;
+                _velocity.Y += Gravity;
             else
-                velocity.Y = 0;
+                _velocity.Y = 0;
 
-            Position += velocity*deltaTime;
+            Position += _velocity * deltaTime;
             Direction = 0.0f;
             base.Update(deltaTime);
         }

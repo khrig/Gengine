@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 namespace Gengine.Map
 {
     public class MapRepository : IMapRepository {
-        private static readonly string COLUMNDELIMITER = ";";
+        private const string Columndelimiter = ";";
 
         private readonly bool _useTitleContainer;
 
@@ -34,7 +34,7 @@ namespace Gengine.Map
             var tileMap = ReadHeader(lines.First());
             foreach (string line in lines.Skip(1)) {
                 LayerInfo layerInfo = GetLayerInfo(line);
-                if (!tileMap.Layers.Any(l => l.Name == layerInfo.Name))
+                if (tileMap.Layers.All(l => l.Name != layerInfo.Name))
                     tileMap.AddLayer(new Layer(layerInfo.Name, layerInfo.Index));
 
                 var layer = tileMap.Layers.First(l => l.Name == layerInfo.Name);
@@ -78,7 +78,7 @@ namespace Gengine.Map
         }
 
         private LayerInfo GetLayerInfo(string line) {
-            string[] values = line.Split(COLUMNDELIMITER.ToCharArray());
+            string[] values = line.Split(Columndelimiter.ToCharArray());
             string[] info = values[0].Split(',');
 
             return new LayerInfo {
@@ -94,7 +94,7 @@ namespace Gengine.Map
         }
 
         private Tile GetSprite(string line) {
-            string[] values = line.Split(COLUMNDELIMITER.ToCharArray());
+            string[] values = line.Split(Columndelimiter.ToCharArray());
 
             Tile sprite = new Tile(values[1], new Vector2(int.Parse(values[2].Split(',')[0]),
                 int.Parse(values[2].Split(',')[1])),
@@ -112,7 +112,7 @@ namespace Gengine.Map
         }
 
         private void WriteSpriteLine(StringBuilder sb, Layer layer, Tile tile) {
-            sb.AppendLine(string.Format("{1}{0}{2}{0}{3},{4}{0}{5}", COLUMNDELIMITER, layer.Serialize(), tile.TextureName, tile.Position.X, tile.Position.Y, RectangleToString(tile.SourceRectangle)));
+            sb.AppendLine(string.Format("{1}{0}{2}{0}{3},{4}{0}{5}", Columndelimiter, layer.Serialize(), tile.TextureName, tile.Position.X, tile.Position.Y, RectangleToString(tile.SourceRectangle)));
         }
 
         private string RectangleToString(Rectangle rect) {

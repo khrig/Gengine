@@ -3,27 +3,23 @@ using Gengine.Input;
 
 namespace Gengine.Entities {
     public class InputComponent : EntityComponent {
-        private readonly CommandQueue commandQueue;
-        private readonly ICommandFactory commandFactory;
+        private readonly CommandQueue _commandQueue;
+        private readonly ICommandFactory _commandFactory;
         public InputComponent() {
-            commandQueue = new CommandQueue();
-            commandFactory = new ComponentCommandFactory();
+            _commandQueue = new CommandQueue();
+            _commandFactory = new ComponentCommandFactory();
         }
 
         public override void Update(float deltaTime) {
-            InputManager.Instance.HandleRealTimeInput(commandQueue, commandFactory);
-            while (commandQueue.HasCommands()) {
-                Command(commandQueue.GetNext());
+            InputManager.Instance.HandleRealTimeInput(_commandQueue, _commandFactory);
+            while (_commandQueue.HasCommands()) {
+                Command(_commandQueue.GetNext());
             }
-            commandQueue.Clear();
+            _commandQueue.Clear();
             base.Update(deltaTime);
         }
 
         private void Command(ICommand command) {
-            /*
-            if (message == "Space")
-                Position = new Vector2(Position.X, Position.Y - 20);
-             * */            
             if (command.Name == "Left")
                 Entity.GetComponent<MovementComponent>().Direction = -1;
             if (command.Name == "Right")

@@ -1,31 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Gengine.Camera
 {
-    public class Camera2d
+    public class Camera2D
     {
-        private const float zoomUpperLimit = 1.5f;
-        private const float zoomLowerLimit = .5f;
+        private const float ZoomUpperLimit = 1.5f;
+        private const float ZoomLowerLimit = .5f;
 
         private float _zoom;
         private Matrix _transform;
         private Vector2 _pos;
-        private float _rotation;
-        private int _viewportWidth;
-        private int _viewportHeight;
-        private int _worldWidth;
-        private int _worldHeight;
+        private readonly int _viewportWidth;
+        private readonly int _viewportHeight;
+        private readonly int _worldWidth;
+        private readonly int _worldHeight;
 
-        public Camera2d(Viewport viewport, int worldWidth,
+        public Camera2D(Viewport viewport, int worldWidth,
            int worldHeight, float initialZoom)
         {
             _zoom = initialZoom;
-            _rotation = 0.0f;
+            Rotation = 0.0f;
             _pos = Vector2.Zero;
             _viewportWidth = viewport.Width;
             _viewportHeight = viewport.Height;
@@ -39,18 +33,14 @@ namespace Gengine.Camera
             set
             {
                 _zoom = value;
-                if (_zoom < zoomLowerLimit)
-                    _zoom = zoomLowerLimit;
-                if (_zoom > zoomUpperLimit)
-                    _zoom = zoomUpperLimit;
+                if (_zoom < ZoomLowerLimit)
+                    _zoom = ZoomLowerLimit;
+                if (_zoom > ZoomUpperLimit)
+                    _zoom = ZoomUpperLimit;
             }
         }
 
-        public float Rotation
-        {
-            get { return _rotation; }
-            set { _rotation = value; }
-        }
+        public float Rotation { get; set; }
 
         public void Move(Vector2 amount)
         {

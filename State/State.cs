@@ -22,5 +22,9 @@ namespace Gengine.State {
         protected void SetTransformation(Matrix? transformationMatrix) {
             StateManager.SetTransformationMatrix(transformationMatrix);
         }
+
+        protected void SetColor(Color color){
+            StateManager.SetColor(color);
+        }
     }
 }
