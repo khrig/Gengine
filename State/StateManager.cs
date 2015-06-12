@@ -10,7 +10,6 @@ namespace Gengine.State {
         private readonly Stack<State> _stateStack;
         private readonly Queue<Action> _stateQueue;
         private readonly Dictionary<string, State> _availableStates = new Dictionary<string, State>();
-
         private Matrix? _transformationMatrix;
         private Color _color;
 
@@ -83,6 +82,10 @@ namespace Gengine.State {
         public IEnumerable<IRenderable> GetRenderTargets(){
             return _stateStack.SelectMany(state => state.GetRenderTargets());
         }
+
+        public IEnumerable<IRenderableText> GetRenderText() {
+            return _stateStack.SelectMany(state => state.GetTextRenderTargets());
+        } 
         
         public Matrix? GetRenderTransformation() {
             return _transformationMatrix;

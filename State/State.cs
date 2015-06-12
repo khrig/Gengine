@@ -18,6 +18,7 @@ namespace Gengine.State {
         public abstract void Unload();
         public abstract void HandleCommands(CommandQueue commandQueue);
         public abstract IEnumerable<IRenderable> GetRenderTargets();
+        public abstract IEnumerable<IRenderableText> GetTextRenderTargets();
 
         protected void SetTransformation(Matrix? transformationMatrix) {
             StateManager.SetTransformationMatrix(transformationMatrix);

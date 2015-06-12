@@ -3,7 +3,6 @@ using Gengine.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Gengine.Resources;
-using System;
 
 namespace Gengine.Systems {
     public class RenderingSystem {
@@ -22,12 +21,13 @@ namespace Gengine.Systems {
             _windowHeight = windowHeight;
         }
 
-        public void DrawWithRenderTarget(IEnumerable<IRenderable> targets, Matrix? transformMatrix, Color color) {
+        public void DrawWithRenderTarget(IEnumerable<IRenderable> renderables, IEnumerable<IRenderableText> texts, Matrix? transformMatrix, Color color) {
             // Set the device to the render target
             _spriteBatch.GraphicsDevice.SetRenderTarget(_renderTarget);
             _spriteBatch.GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, transformMatrix);
-            Draw(targets);
+            Draw(renderables);
+            Draw(texts);
             _spriteBatch.End();
 
             // Reset the device to the back buffer
@@ -40,26 +40,17 @@ namespace Gengine.Systems {
 
         private void Draw(IEnumerable<IRenderable> list) {
             foreach (IRenderable renderable in list) {
-                Draw(renderable);
+                DrawSprite(renderable);
             }
         }
 
-        private void Draw(IRenderable renderTarget) {
-            switch(renderTarget.Type) {
-                case RenderType.Sprite: {
-                        DrawSprite(renderTarget);
-                        break;
-                    }
-                case RenderType.Text: {
-                        DrawText(renderTarget);
-                        break;
-                    }
-                default:
-                    throw new ArgumentException(renderTarget.Type.ToString());
+        private void Draw(IEnumerable<IRenderableText> list) {
+            foreach (IRenderableText renderable in list) {
+                DrawText(renderable);
             }
         }
 
-        private void DrawText(IRenderable renderTarget) {
+        private void DrawText(IRenderableText renderTarget) {
             _spriteBatch.DrawString(_resourceManager.GetFont(renderTarget.FontName), renderTarget.Text, renderTarget.RenderPosition, renderTarget.Color);
         }
 
