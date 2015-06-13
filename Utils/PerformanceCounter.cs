@@ -51,12 +51,15 @@ namespace Gengine.Utils {
 
         public void Render(SpriteBatch spriteBatch){
             _frameCounter++;
-            string fps = string.Format("fps:   {0:00.0}\nupdate:{1,4:00.0}\n draw:  {2,4:00.0}", _frameRate,
+            string info = string.Format("fps:   {0:00.0}\nupdate:{1,4:00.0}\n draw:  {2,4:00.0}\n Gc0: {3}\n Gc1: {4}\n Gc2: {5}", _frameRate,
                 (float)_stopWatchUpdate.ElapsedTicks / (float)Stopwatch.Frequency * 1000.0f,
-                (float)_stopWatchRender.ElapsedTicks / (float)Stopwatch.Frequency * 1000.0f);
+                (float)_stopWatchRender.ElapsedTicks / (float)Stopwatch.Frequency * 1000.0f,
+                GC.CollectionCount(0),
+                GC.CollectionCount(1),
+                GC.CollectionCount(2));
 
             spriteBatch.Begin();
-            spriteBatch.DrawString(_resourceManager.GetFont(_fontName), fps, _position, Color.White);
+            spriteBatch.DrawString(_resourceManager.GetFont(_fontName), info, _position, Color.White);
             spriteBatch.End();
         }
     }

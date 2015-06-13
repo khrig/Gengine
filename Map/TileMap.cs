@@ -6,8 +6,15 @@ using Microsoft.Xna.Framework;
 namespace Gengine.Map {
     public class TileMap {
         private readonly List<Layer> _layers;
-
         public Tile[,] Tiles { get; set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        public IEnumerable<Layer> Layers {
+            get {
+                return _layers;
+            }
+        }
+        public Point ExitPoint { get; set; }
 
         public TileMap(int width, int height) {
             Width = width;
@@ -29,13 +36,6 @@ namespace Gengine.Map {
             get {
                 return _layers.SelectMany(l => l.Tiles);
             } 
-        }
-
-        public int Width { get; private set; }
-        public int Height { get; private set; }
-        public IEnumerable<Layer> Layers { get {
-                return _layers;
-            }
         }
 
         public void AddLayer(Layer layer) {

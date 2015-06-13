@@ -2,6 +2,7 @@
 using System.Linq;
 using Gengine.Entities;
 using Gengine.Map;
+using Microsoft.Xna.Framework;
 
 namespace Gengine.Systems {
     public class CollisionSystem {
@@ -30,6 +31,10 @@ namespace Gengine.Systems {
                 first.Collide(second);
                 second.Collide(first);
             }
+        }
+
+        public bool Collision(ICollidable collidable, Point point){
+            return collidable.BoundingBox.Contains(point);
         }
     }
 }
