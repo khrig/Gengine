@@ -36,6 +36,13 @@ namespace Gengine.Events {
             _eventListeners[eventName].Remove(listener);
         }
 
+        public void DetachFromAll(IEventListener listener) {
+            IEnumerable<string> keys = _eventListeners.Keys.ToList();
+            foreach (var key in keys){
+                _eventListeners[key].Remove(listener);
+            }
+        }
+
         public void DetachAll() {
             IEnumerable<string> keys = _eventListeners.Keys.ToList();
             foreach (var key in keys) {
