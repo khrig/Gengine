@@ -29,6 +29,7 @@ namespace Gengine.State {
             {
                 var state = _stateStack.Pop();
                 state.Unload();
+                SetTransformationMatrix(null);
             });
         }
 
@@ -38,6 +39,7 @@ namespace Gengine.State {
                     var state = _stateStack.Pop();
                     state.Unload();
                 }
+                SetTransformationMatrix(null);
             });
         }
 

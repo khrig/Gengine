@@ -32,10 +32,9 @@ namespace Gengine.Map {
             return Tiles[tileX, tileY];
         }
 
+        private IEnumerable<IRenderable> _tiles;
         public IEnumerable<IRenderable> RenderableTiles {
-            get {
-                return _layers.SelectMany(l => l.Tiles);
-            } 
+            get { return _tiles ?? (_tiles = _layers.OrderBy(l => l.Index).SelectMany(l => l.Tiles)); }
         }
 
         public void AddLayer(Layer layer) {
@@ -46,36 +45,16 @@ namespace Gengine.Map {
             int tileCountX = Width / 32;
             int tileCountY = Height / 32;
 
-            // Temp, only gets one layer now (maybe collision layer?)
             Tiles = new Tile[tileCountX, tileCountY];
 
             for (int x = 0; x < tileCountX; x++) {
                 for (int y = 0; y < tileCountY; y++) {
-                    Tile tile = _layers.SelectMany(l => l.Tiles).FirstOrDefault(t => t.Position.X == x * 32 && t.Position.Y == y * 32);
+                    Tile tile = _layers.First(l => l.Name == "Collision").Tiles.FirstOrDefault(t => t.Position.X == x * 32 && t.Position.Y == y * 32);
                     if (tile == null) {
                         Tiles[x, y] = new Tile(null, new Vector2(x, y), new Rectangle(0, 0, 32, 32), false);
                     } else {
-                        tile.Position = new Vector2(x, y);
-                        Tiles[x, y] = tile;
+                        Tiles[x, y] = new Tile(null, new Vector2(x, y), tile.Position, new Rectangle(0, 0, 32, 32));
                     }
-                    //Tiles[x, y] = new Tile(string.Format("{0}:{1}", x * _tileSize, y * _tileSize)) {
-                    //    Position = new Vector2(x, y)
-                    //};
-
-                    /*
-                    if (x == 0 || x == gridSize.X - 1 || y == 0 || y == gridSize.Y - 1)
-                        Tiles[x, y].IsSolid = true;
-                    if (y == gridSize.Y - 2 && x == 5) {
-                        Tiles[x, y].IsSolid = true;
-                    }
-
-                    if (y == gridSize.Y - 4 && x == _gridSize.X - 3) {
-                        Tiles[x, y].IsSolid = true;
-                    }
-                    if (y == 4 && x >= 0 && x < 6) {
-                        Tiles[x, y].IsSolid = true;
-                    }
-                     * */
                 }
             }
         }
