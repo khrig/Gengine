@@ -41,6 +41,7 @@ namespace Gengine.Map
                 layer.Tiles.Add(GetSprite(line));
             }
             tileMap.CreateCollisionLayer();
+            tileMap.SetExitPoint();
             return tileMap;
         }
 

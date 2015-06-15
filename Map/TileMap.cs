@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Gengine.Entities;
 using Microsoft.Xna.Framework;
@@ -57,6 +58,14 @@ namespace Gengine.Map {
                     }
                 }
             }
+        }
+
+        public void SetExitPoint(){
+            Tile tile = _layers.First(l => l.Name == "Exit").Tiles.FirstOrDefault();
+            if(tile == null)
+                throw new Exception("Exit point not found! A Layer with name Exit with one tile in it is required!");
+
+            ExitPoint = new Point((int)tile.RenderPosition.X + 16, (int)tile.RenderPosition.Y + 16);
         }
     }
 }
