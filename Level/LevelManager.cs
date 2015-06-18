@@ -25,6 +25,7 @@ namespace Gengine.Level {
             level.AddEntity(_enemyFactory.Create("slime", new Vector2(608, 288), tileMap));
             level.AddEntity(_enemyFactory.Create("slime", new Vector2(1184, 288), tileMap));
             level.AddPickup(_pickupFactory.CreatePickup("GravityReverse", new Vector2(448, 96)));
+            level.AddPickup(_pickupFactory.CreatePickup("Health", new Vector2(480, 96)));
             return level;
         }
     }
