@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Gengine.Events {
     public sealed class EventManager {
         private static readonly EventManager _instance = new EventManager();
-        private EventManager() { }
+
+        private EventManager(){
+            _eventQueue = new Queue<IEvent>();
+            _eventListeners = new Dictionary<string, IList<IEventListener>>();
+        }
+
         public static EventManager Instance { get { return _instance; } }
-        private readonly Queue<IEvent> _eventQueue = new Queue<IEvent>(); 
-        private readonly Dictionary<string, IList<IEventListener>> _eventListeners = new Dictionary<string, IList<IEventListener>>();
+        private readonly Queue<IEvent> _eventQueue; 
+        private readonly Dictionary<string, IList<IEventListener>> _eventListeners;
 
         public void QueueEvent(IEvent @event) {
             _eventQueue.Enqueue(@event);
@@ -37,15 +41,13 @@ namespace Gengine.Events {
         }
 
         public void DetachFromAll(IEventListener listener) {
-            IEnumerable<string> keys = _eventListeners.Keys.ToList();
-            foreach (var key in keys){
+            foreach (var key in _eventListeners.Keys) {
                 _eventListeners[key].Remove(listener);
             }
         }
 
         public void DetachAll() {
-            IEnumerable<string> keys = _eventListeners.Keys.ToList();
-            foreach (var key in keys) {
+            foreach (var key in _eventListeners.Keys) {
                 _eventListeners.Remove(key);
             }
         }

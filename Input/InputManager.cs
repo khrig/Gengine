@@ -32,6 +32,9 @@ namespace Gengine.Input {
             if (_lastKeyBoardState.IsKeyDown(Keys.U) && currentKeyBoardState.IsKeyUp(Keys.U)) {
                 commandQueue.QueueCommand(commandFactory.CreateCommand("Debug"));
             }
+            if (_lastKeyBoardState.IsKeyDown(Keys.R) && currentKeyBoardState.IsKeyUp(Keys.R)) {
+                commandQueue.QueueCommand(commandFactory.CreateCommand("ReverseGravity"));
+            }
             _lastKeyBoardState = currentKeyBoardState;
         }
 
@@ -47,7 +50,7 @@ namespace Gengine.Input {
             if (currentKeyBoardState.IsKeyDown(Keys.Space)) {
                 commandQueue.QueueCommand(commandFactory.CreateCommand("Shoot"));
             }
-            if (currentKeyBoardState.IsKeyDown(Keys.W)) {
+            if (currentKeyBoardState.IsKeyDown(Keys.W) || currentKeyBoardState.IsKeyDown(Keys.Up)) {
                 commandQueue.QueueCommand(commandFactory.CreateCommand("Jump"));
             }
         }

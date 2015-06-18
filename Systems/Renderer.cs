@@ -27,6 +27,8 @@ namespace Gengine.Systems {
             _spriteBatch.GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, transformMatrix);
             Draw(renderables);
+            _spriteBatch.End();
+            _spriteBatch.Begin();
             Draw(texts);
             _spriteBatch.End();
 
