@@ -1,11 +1,11 @@
 ﻿namespace Gengine.Entities {
     public abstract class EntityComponent : IEntityComponent {
-        protected Entity Entity;
+        protected AbstractEntity AbstractEntity;
         public virtual void Update(float deltaTime) { }
         public virtual void HandleCommand(string message) { }
 
-        public void SetRelation(Entity entity) {
-            Entity = entity;
+        public void SetRelation(AbstractEntity abstractEntity) {
+            AbstractEntity = abstractEntity;
         }
     }
 }

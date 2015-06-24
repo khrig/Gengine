@@ -21,9 +21,9 @@ namespace Gengine.Entities {
 
         private void Command(ICommand command) {
             if (command.Name == "Left")
-                Entity.GetComponent<MovementComponent>().Direction = -1;
+                AbstractEntity.GetComponent<MovementComponent>().Direction = -1;
             if (command.Name == "Right")
-                Entity.GetComponent<MovementComponent>().Direction = 1;
+                AbstractEntity.GetComponent<MovementComponent>().Direction = 1;
         }
 
         private class ComponentCommandFactory : ICommandFactory {
