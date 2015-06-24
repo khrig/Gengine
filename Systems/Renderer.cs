@@ -13,12 +13,12 @@ namespace Gengine.Systems {
         private readonly int _windowWidth;
         private readonly int _windowHeight;
 
-        public RenderingSystem(IResourceManager resourceManager, SpriteBatch batch, RenderTarget2D renderTarget, int windowWidth, int windowHeight) {
-            _spriteBatch = batch;
+        public RenderingSystem(GraphicsDeviceManager graphicsDeviceManager, IResourceManager resourceManager, IWorld world) {
+            _spriteBatch = new SpriteBatch(graphicsDeviceManager.GraphicsDevice);
+            _renderTarget = new RenderTarget2D(graphicsDeviceManager.GraphicsDevice, world.View.Width, world.View.Height);
             _resourceManager = resourceManager;
-            _renderTarget = renderTarget;
-            _windowWidth = windowWidth;
-            _windowHeight = windowHeight;
+            _windowWidth = world.WindowWidth;
+            _windowHeight = world.WindowHeight;
         }
 
         public void DrawWithRenderTarget(IEnumerable<IRenderable> renderables, IEnumerable<IRenderableText> texts, Matrix? transformMatrix, Color color) {

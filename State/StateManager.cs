@@ -7,13 +7,15 @@ using Microsoft.Xna.Framework;
 
 namespace Gengine.State {
     public class StateManager {
+        private readonly IWorld _world;
         private readonly Stack<State> _stateStack;
         private readonly Queue<Action> _stateQueue;
         private readonly Dictionary<string, State> _availableStates = new Dictionary<string, State>();
         private Matrix? _transformationMatrix;
         private Color _color;
 
-        public StateManager() {
+        public StateManager(IWorld world) {
+            _world = world;
             _stateStack = new Stack<State>();
             _stateQueue = new Queue<Action>();
             _color = Color.White;
@@ -79,6 +81,7 @@ namespace Gengine.State {
         
         private void InitState(State state) {
             state.StateManager = this;
+            state.World = _world;
         }
 
         public IEnumerable<IRenderable> GetRenderTargets(){
