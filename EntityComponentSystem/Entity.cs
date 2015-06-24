@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 
 namespace Gengine.EntityComponentSystem {
+
+    /*
+     * 
+     * Based on 
+     * https://github.com/NatWeiss/EntityFu/blob/master/main.cpp
+     * 
+     * 
+     * 
+     */
+
+
     public class Entity {
         private const int Maxentities = 4096;
         private const int MaxComponentsForEntity = 100;
@@ -23,6 +34,12 @@ namespace Gengine.EntityComponentSystem {
 
             _entities[eid] = true;
             return eid;
+        }
+
+        public static void AddComponent(int eid, Component component) {
+            if (eid < 1 || eid >= Maxentities)
+                throw new ArgumentException("invalid eid : " + eid);
+            _componentToEid[eid, component.Id] = component;
         }
 
         public static int Create(params Component[] components){
