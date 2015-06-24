@@ -42,17 +42,16 @@ namespace Gengine.EntityComponentSystem {
         }
 
         public static IEnumerable<T> GetAllComponents<T>() where T : Component {
-            List<T> res = new List<T>();
             for (int eid = 0; eid < Maxentities; eid++){
                 if (_entities[eid]){
                     for(int i = 0; i < _componentToEid.GetUpperBound(1); i++){
                         var v = (T) _componentToEid[eid, i];
-                        if(v != null)
-                            res.Add((T)_componentToEid[eid, i]);
+                        if (v != null){
+                            yield return v;
+                        }
                     }
                 }
             }
-            return res;
         }
     }
 }
