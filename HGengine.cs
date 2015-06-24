@@ -3,6 +3,7 @@ using Gengine.Input;
 using Gengine.Resources;
 using Gengine.State;
 using Gengine.Systems;
+using Gengine.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -20,12 +21,13 @@ namespace Gengine {
         public HGengine(Game gameRef, GraphicsDeviceManager graphics){
             _gameRef = gameRef;
             _graphics = graphics;
-            _resourceManager = new ResourceManager();
             _commandQueue = new CommandQueue();
             _commandFactory = new SimpleCommandFactory();
+            _resourceManager = new ResourceManager();
+            TextExtensions.AddResourceManager(_resourceManager);
         }
 
-        public void Start(int gameWidth, int gameHeight, int windowWidth, int windowHeight) {
+        public void Initialize(int gameWidth, int gameHeight, int windowWidth, int windowHeight) {
             _world = new TwoDWorld(gameWidth, gameHeight, windowWidth, windowHeight);
             _renderingSystem = new RenderingSystem(_graphics, _resourceManager, _world);
             _graphics.PreferredBackBufferWidth = windowWidth;
@@ -35,7 +37,7 @@ namespace Gengine {
             InitSystems();
         }
 
-        public void StartFullScreen(int gameWidth, int gameHeight) {
+        public void InitializeFullScreen(int gameWidth, int gameHeight) {
             int windowWidth = _graphics.PreferredBackBufferWidth = _graphics.GraphicsDevice.DisplayMode.Width;
             int windowHeight = _graphics.PreferredBackBufferHeight = _graphics.GraphicsDevice.DisplayMode.Height;
             _graphics.IsFullScreen = true;
@@ -69,8 +71,10 @@ namespace Gengine {
 
         public void AddState(string name, State.State state) {
             _stateManager.Add(name, state);
-            if(_stateManager.IsEmpty())
-                _stateManager.PushState(name);
+        }
+
+        public void StartWith(string name) {
+            _stateManager.PushState(name);
         }
 
         private void InitSystems() {

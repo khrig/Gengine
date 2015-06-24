@@ -51,6 +51,7 @@
     <Compile Include="Background\IBackgroundTile.cs" />
     <Compile Include="Background\ParallaxBackgroundTile.cs" />
     <Compile Include="Camera\Camera2D.cs" />
+    <Compile Include="Camera\ICamera.cs" />
     <Compile Include="Camera\SimpleCamera2D.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\ICommand.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Utils\FrameCounter.cs" />
     <Compile Include="Utils\PerformanceCounter.cs" />
+    <Compile Include="Utils\TextExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

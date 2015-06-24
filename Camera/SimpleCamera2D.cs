@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 namespace Gengine.Camera {
-    public class SimpleCamera2D {
+    public class SimpleCamera2D : ICamera {
         private readonly IWorld _world;
 
         public SimpleCamera2D(IWorld world) {
@@ -24,9 +24,9 @@ namespace Gengine.Camera {
         }
 
         private Vector2 _position;
-        public Vector2 Position { get { return _position; } }
-        public float Rotation { get; private set; }
-        public float Zoom { get; private set; }
+        private Vector2 Position { get { return _position; } }
+        private float Rotation { get; set; }
+        private float Zoom { get; set; }
 
         public Matrix GetTransformMatrix() {
             return Matrix.CreateRotationZ(Rotation) * Matrix.CreateScale(Zoom) *
