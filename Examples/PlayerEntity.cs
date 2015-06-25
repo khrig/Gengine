@@ -16,7 +16,7 @@ namespace Gengine.Examples {
             get { return Position; }
         }
 
-        public PlayerAbstractEntity(InputComponent input, MovementComponentOLD movement) {
+        public PlayerAbstractEntity(InputComponentOLD input, MovementComponentOLD movement) {
             // Order matters
             AddComponent(input);
             AddComponent(movement);

@@ -2,10 +2,10 @@
 using Gengine.Input;
 
 namespace Gengine.Entities {
-    public class InputComponent : EntityComponent {
+    public class InputComponentOLD : EntityComponent {
         private readonly CommandQueue _commandQueue;
         private readonly ICommandFactory _commandFactory;
-        public InputComponent() {
+        public InputComponentOLD() {
             _commandQueue = new CommandQueue();
             _commandFactory = new ComponentCommandFactory();
         }

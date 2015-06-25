@@ -15,26 +15,26 @@ namespace Gengine.Systems {
             }
         }
 
-        public bool IsCenterColliding(ICollidable collidable, TileMap tileMap){
+        public void HandleCollision(ICollisionHandler first, ICollisionHandler second) {
+            TestCollision(first, second);
+        }
+
+        public bool IsCenterColliding(ICollidable collidable, TileMap tileMap) {
             return tileMap.PositionToTile(collidable.BoundingBox.Center.X, collidable.BoundingBox.Center.Y).IsSolid;
         }
 
-        public void HandleCollision(ICollisionHandler first, ICollisionHandler second) {
-            TestCollision(first, second);
+        public bool Collision(ICollidable collidable, Point point){
+            return collidable.BoundingBox.Contains(point);
         }
 
         private void TestCollision(ICollisionHandler first, ICollisionHandler second) {
             if (first == second)
                 return;
 
-            if(first.BoundingBox.Intersects(second.BoundingBox)) {
+            if (first.BoundingBox.Intersects(second.BoundingBox)) {
                 first.Collide(second);
                 second.Collide(first);
             }
-        }
-
-        public bool Collision(ICollidable collidable, Point point){
-            return collidable.BoundingBox.Contains(point);
         }
     }
 }
