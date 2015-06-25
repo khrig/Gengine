@@ -1,5 +1,5 @@
 ﻿namespace Gengine.Entities {
-    public interface IPickup : ICollidable, IRenderable {
+    public interface IPickup : ICollisionHandler, IRenderable {
         bool IsPickedUp { get; }
     }
 }

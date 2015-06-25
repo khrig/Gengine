@@ -1,5 +1,5 @@
 ﻿namespace Gengine.Entities {
-    public interface IEntity : ICollidable, IRenderable {
+    public interface IEntity : ICollisionHandler, IRenderable {
         void Update(float deltaTime);
         bool IsDestroyed { get; }
     }
