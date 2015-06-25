@@ -53,12 +53,11 @@
     <Compile Include="Camera\Camera2D.cs" />
     <Compile Include="Camera\ICamera.cs" />
     <Compile Include="Camera\SimpleCamera2D.cs" />
+    <Compile Include="Collections\ResourcePool.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ICommandFactory.cs" />
     <Compile Include="Commands\SimpleCommandFactory.cs" />
-    <Compile Include="EntityComponentSystem\Component.cs" />
-    <Compile Include="EntityComponentSystem\Entity.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\IEntityFactory.cs" />
     <Compile Include="Entities\IPickup.cs" />
@@ -66,6 +65,12 @@
     <Compile Include="Entities\IProjectile.cs" />
     <Compile Include="Entities\IRenderableText.cs" />
     <Compile Include="Entities\IWeapon.cs" />
+    <Compile Include="EntityComponentSystem\Entity.cs" />
+    <Compile Include="EntityComponentSystem\EntityComponentSystem.cs" />
+    <Compile Include="EntityComponentSystem\EntityManager.cs" />
+    <Compile Include="EntityComponentSystem\EntityProcessingSystem.cs" />
+    <Compile Include="EntityComponentSystem\EntitySystem.cs" />
+    <Compile Include="EntityComponentSystem\IComponent.cs" />
     <Compile Include="Events\GameEvent.cs" />
     <Compile Include="HGengine.cs" />
     <Compile Include="Level\Level.cs" />
