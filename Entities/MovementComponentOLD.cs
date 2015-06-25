@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 namespace Gengine.Entities {
-    public class MovementComponent : EntityComponent {
+    public class MovementComponentOLD : EntityComponent {
         public Vector2 Position { get; private set; }
         private Vector2 _velocity;
         public float Direction { get; set; }
@@ -12,7 +12,7 @@ namespace Gengine.Entities {
         private const float GroundDragFactor = 0.7f;
         private const float Gravity = 0.00581f;
 
-        public MovementComponent(Vector2 position) {
+        public MovementComponentOLD(Vector2 position) {
             Position = position;
             _velocity = new Vector2();
         }

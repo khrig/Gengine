@@ -13,6 +13,8 @@ namespace Gengine.Systems {
         private readonly int _windowWidth;
         private readonly int _windowHeight;
 
+        public bool DebugDraw { get; set; }
+
         public RenderingSystem(GraphicsDeviceManager graphicsDeviceManager, IResourceManager resourceManager, IWorld world) {
             _spriteBatch = new SpriteBatch(graphicsDeviceManager.GraphicsDevice);
             _renderTarget = new RenderTarget2D(graphicsDeviceManager.GraphicsDevice, world.View.Width, world.View.Height);
@@ -22,9 +24,10 @@ namespace Gengine.Systems {
         }
 
         public void DrawWithRenderTarget(IEnumerable<IRenderable> renderables, IEnumerable<IRenderableText> texts, Matrix? transformMatrix, Color color) {
+            
             // Set the device to the render target
-            _spriteBatch.GraphicsDevice.SetRenderTarget(_renderTarget);
             _spriteBatch.GraphicsDevice.Clear(Color.Black);
+            _spriteBatch.GraphicsDevice.SetRenderTarget(_renderTarget);
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, transformMatrix);
             Draw(renderables);
             _spriteBatch.End();
@@ -63,8 +66,8 @@ namespace Gengine.Systems {
                 renderTarget.SourceRectangle,
                 Color.White);
             
-            // DEBUG
-            DrawRectangle(_spriteBatch, new Rectangle((int)renderTarget.RenderPosition.X, (int)renderTarget.RenderPosition.Y, renderTarget.SourceRectangle.Width, renderTarget.SourceRectangle.Height), 1, Color.Red);
+            if (DebugDraw)
+                DrawRectangle(_spriteBatch, new Rectangle((int)renderTarget.RenderPosition.X, (int)renderTarget.RenderPosition.Y, renderTarget.SourceRectangle.Width, renderTarget.SourceRectangle.Height), 1, Color.Red);
         }
 
         private void DrawRectangle(SpriteBatch batch, Rectangle area, int width, Color color) {

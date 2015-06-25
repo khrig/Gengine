@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 namespace Gengine.Examples {
     public class PlayerAbstractEntity : AbstractEntity, IRenderable, ICollidable {
         public string TextureName { get { return null; } }
-        public Vector2 Position { get { return GetComponent<MovementComponent>().Position; } }
+        public Vector2 Position { get { return GetComponent<MovementComponentOLD>().Position; } }
         public Rectangle SourceRectangle { get { return new Rectangle(0, 0, 0, 0); } }
         public Rectangle BoundingBox { get; private set; }
 
@@ -16,7 +16,7 @@ namespace Gengine.Examples {
             get { return Position; }
         }
 
-        public PlayerAbstractEntity(InputComponent input, MovementComponent movement) {
+        public PlayerAbstractEntity(InputComponent input, MovementComponentOLD movement) {
             // Order matters
             AddComponent(input);
             AddComponent(movement);

@@ -81,12 +81,16 @@ namespace Gengine {
             _stateManager = new StateManager(_world);
         }
 
-        public void AddFont(string text, string fontPath){
-            _resourceManager.AddFont("text", _gameRef.Content.Load<SpriteFont>(fontPath));
+        public void AddFont(string fontName, string fontPath){
+            _resourceManager.AddFont(fontName, _gameRef.Content.Load<SpriteFont>(fontPath));
         }
 
-        public void AddTexture(string tiles32Png, string spritePath) {
-            _resourceManager.AddTexture("tiles32.png", _gameRef.Content.Load<Texture2D>(spritePath));
+        public void AddTexture(string spriteName, string spritePath) {
+            _resourceManager.AddTexture(spriteName, _gameRef.Content.Load<Texture2D>(spritePath));
+        }
+
+        public void SetDebugDraw(bool enable){
+            _renderingSystem.DebugDraw = enable;
         }
     }
 }

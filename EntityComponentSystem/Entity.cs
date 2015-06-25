@@ -21,6 +21,10 @@ namespace Gengine.EntityComponentSystem{
             // return from the pool next item that is available
         }
 
+        public T GetComponent<T>() where T : IComponent{
+            return _entityManager.GetComponent<T>(this);
+        }
+
         public IComponent GetComponent(Type componentType){
             return _entityManager.GetComponent(this, componentType);
         }
