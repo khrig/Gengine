@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Gengine.EntityComponentSystem {
     public class EntityComponentSystem {
@@ -26,6 +27,13 @@ namespace Gengine.EntityComponentSystem {
         public void RegisterSystem(EntitySystem system) {
             system.EntityManagerInstance = _entityManager;
             _entitySystems.Add(system);
+        }
+
+        public void RegisterSystems(params EntitySystem[] systems) {
+            foreach (var system in systems){
+                system.EntityManagerInstance = _entityManager;
+                _entitySystems.Add(system);    
+            }
         }
 
         /// <summary>
