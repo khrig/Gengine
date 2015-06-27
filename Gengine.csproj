@@ -85,6 +85,8 @@
     <Compile Include="Map\TileAction.cs" />
     <Compile Include="MathUtils\RectangleExtensions.cs" />
     <Compile Include="State\BaseMenuState.cs" />
+    <Compile Include="State\FadeState.cs" />
+    <Compile Include="State\Transition.cs" />
     <Compile Include="Systems\ArcadeCollisionSystem.cs" />
     <Compile Include="Systems\ICollisionSystem.cs" />
     <Compile Include="TwoDWorld.cs" />

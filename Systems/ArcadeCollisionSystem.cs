@@ -38,14 +38,17 @@ namespace Gengine.Systems {
                 console.log('entering door that will take you to '+door.targetTilemap+' on x:'+door.targetX+' and y:'+door.targetY);
               },
          * */
+
         public void Overlap(ICollidable collidable, IEnumerable<ICollidable> collidables, Action<ICollidable, ICollidable> onOverlap) {
-
-
+            foreach (var second in collidables){
+                if (collidable.GetBoundingBox().Intersects(second.GetBoundingBox())){
+                    onOverlap(collidable, second);
+                }
+            }
         }
 
         public void Overlap(IEnumerable<ICollidable> first, IEnumerable<ICollidable> second, Action<ICollidable, ICollidable> onOverlap) {
-
-
+            throw new NotImplementedException();
         }
 
         public void Collide(IEnumerable<ICollidable> collidables, ICollidableMap map){

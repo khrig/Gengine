@@ -7,6 +7,7 @@ namespace Gengine.Map {
         public string TextureName { get; private set; }
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
+
         public Rectangle SourceRectangle { get; private set; }
         private readonly Rectangle _boundingBox;
         public bool FaceRight { get; set; }
@@ -45,6 +46,9 @@ namespace Gengine.Map {
 
         public Rectangle GetBoundingBox(){
             return _boundingBox;
+        }
+
+        public virtual void Collide(ICollidable second) {
         }
     }
 }

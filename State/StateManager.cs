@@ -53,6 +53,17 @@ namespace Gengine.State {
                 });
         }
 
+        public void PushState(Transition state) {
+            InitState(state);
+            _stateQueue.Enqueue(() =>{
+                if (_availableStates.ContainsKey(state.NextStateId)) {
+                    _availableStates[state.NextStateId].Init();
+                    _stateStack.Push(_availableStates[state.NextStateId]);
+                }
+                _stateStack.Push(state);
+            });
+        }
+
         public void HandleCommands(CommandQueue commands) {
             if (_stateStack.Count == 0)
                 return;
