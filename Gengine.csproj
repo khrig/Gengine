@@ -82,6 +82,7 @@
     <Compile Include="Map\IMapRepository.cs" />
     <Compile Include="Map\Layer.cs" />
     <Compile Include="Map\MapRepository.cs" />
+    <Compile Include="MathUtils\RectangleExtensions.cs" />
     <Compile Include="State\BaseMenuState.cs" />
     <Compile Include="Systems\ArcadeCollisionSystem.cs" />
     <Compile Include="Systems\ICollisionSystem.cs" />
@@ -100,7 +101,6 @@
     <Compile Include="Events\IEventListener.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Input\InputManager.cs" />
-    <Compile Include="Examples\PlayerEntity.cs" />
     <Compile Include="IWorld.cs" />
     <Compile Include="MathUtils\Calc2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

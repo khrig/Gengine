@@ -6,8 +6,14 @@ namespace Gengine.Map {
         private readonly Vector2 _pixelPosition;
         public string TextureName { get; private set; }
         public Vector2 Position { get; set; }
+        public Vector2 Velocity { get; set; }
         public Rectangle SourceRectangle { get; private set; }
-        public Rectangle BoundingBox { get; private set; }
+        private readonly Rectangle _boundingBox;
+        public bool FaceRight { get; set; }
+        public bool FaceLeft { get; set; }
+        public bool FaceTop { get; set; }
+        public bool FaceBottom { get; set; }
+
         public bool IsSolid { get; set; }
         public bool DebugDraw { get; set; }
 
@@ -24,7 +30,7 @@ namespace Gengine.Map {
             TextureName = textureName;
             Position = position;
             SourceRectangle = sourceRectangle;
-            BoundingBox = new Rectangle((int)position.X, (int)position.Y, sourceRectangle.Width, sourceRectangle.Height);
+            _boundingBox = new Rectangle((int)position.X, (int)position.Y, sourceRectangle.Width, sourceRectangle.Height);
             IsSolid = solid;
         }
 
@@ -33,8 +39,12 @@ namespace Gengine.Map {
             TextureName = textureName;
             Position = gridPosition;
             SourceRectangle = sourceRectangle;
-            BoundingBox = new Rectangle((int)pixelPosition.X, (int)pixelPosition.Y, sourceRectangle.Width, sourceRectangle.Height);
+            _boundingBox = new Rectangle((int)pixelPosition.X, (int)pixelPosition.Y, sourceRectangle.Width, sourceRectangle.Height);
             IsSolid = solid;
+        }
+
+        public Rectangle GetBoundingBox(){
+            return _boundingBox;
         }
 
         public void Collide(ICollidable target) {}

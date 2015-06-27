@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Gengine.EntityComponentSystem {
     public class EntityComponentSystem {
         private readonly EntityManager _entityManager;
-        private readonly List<EntitySystem> _entitySystems;
+        private readonly List<EntitySystem> _entityUpdateSystems;
+        private readonly List<EntitySystem> _entityRenderingSystems;
 
         public EntityComponentSystem() {
             _entityManager = new EntityManager();
-            _entitySystems = new List<EntitySystem>();
+            _entityUpdateSystems = new List<EntitySystem>();
+            _entityRenderingSystems = new List<EntitySystem>();
         }
 
         /// <summary>
@@ -24,15 +25,28 @@ namespace Gengine.EntityComponentSystem {
         /// Systems get updated in the order they are registered
         /// </summary>
         /// <param name="system">The system to add in order</param>
-        public void RegisterSystem(EntitySystem system) {
+        public void RegisterUpdateSystem(EntitySystem system) {
             system.EntityManagerInstance = _entityManager;
-            _entitySystems.Add(system);
+            _entityUpdateSystems.Add(system);
         }
 
-        public void RegisterSystems(params EntitySystem[] systems) {
-            foreach (var system in systems){
+        public void RegisterRenderSystem(EntitySystem system) {
+            system.EntityManagerInstance = _entityManager;
+            _entityRenderingSystems.Add(system);
+        }
+
+        public void RegisterUpdateSystems(params EntitySystem[] systems) {
+            RegisterSystems(_entityUpdateSystems, systems);
+        }
+
+        public void RegisterRenderSystems(params EntitySystem[] systems){
+            RegisterSystems(_entityRenderingSystems, systems);
+        }
+
+        private void RegisterSystems(List<EntitySystem> systemCollection, params EntitySystem[] systems){
+            foreach (var system in systems) {
                 system.EntityManagerInstance = _entityManager;
-                _entitySystems.Add(system);    
+                systemCollection.Add(system);
             }
         }
 
@@ -41,7 +55,13 @@ namespace Gengine.EntityComponentSystem {
         /// </summary>
         /// <param name="dt"></param>
         public void Update(float dt) {
-            foreach (var system in _entitySystems) {
+            foreach (var system in _entityUpdateSystems) {
+                system.Update(dt);
+            }
+        }
+
+        public void UpdateBeforeDraw(float dt) {
+            foreach (var system in _entityRenderingSystems) {
                 system.Update(dt);
             }
         }

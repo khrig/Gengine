@@ -33,7 +33,7 @@ namespace Gengine.Entities {
         }
 
         public void CorrectPositionAfterCollision(ICollidable target) {
-            Position = new Vector2(Position.X, target.BoundingBox.Top - 32);
+            Position = new Vector2(Position.X, target.GetBoundingBox().Top - 32);
             IsOnGround = true;
         }
     }

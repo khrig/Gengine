@@ -47,6 +47,12 @@ namespace Gengine.Input {
             if (currentKeyBoardState.IsKeyDown(Keys.Right) || currentKeyBoardState.IsKeyDown(Keys.D)) {
                 commandQueue.QueueCommand(commandFactory.CreateCommand("Right"));
             }
+            if (currentKeyBoardState.IsKeyDown(Keys.Up) || currentKeyBoardState.IsKeyDown(Keys.W)) {
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Up"));
+            }
+            if (currentKeyBoardState.IsKeyDown(Keys.Down) || currentKeyBoardState.IsKeyDown(Keys.S)) {
+                commandQueue.QueueCommand(commandFactory.CreateCommand("Down"));
+            }
             if (currentKeyBoardState.IsKeyDown(Keys.Space)) {
                 commandQueue.QueueCommand(commandFactory.CreateCommand("Shoot"));
             }

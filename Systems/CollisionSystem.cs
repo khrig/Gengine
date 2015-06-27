@@ -20,18 +20,18 @@ namespace Gengine.Systems {
         }
 
         public bool IsCenterColliding(ICollidable collidable, TileMap tileMap) {
-            return tileMap.PositionToTile(collidable.BoundingBox.Center.X, collidable.BoundingBox.Center.Y).IsSolid;
+            return tileMap.PositionToTile(collidable.GetBoundingBox().Center.X, collidable.GetBoundingBox().Center.Y).IsSolid;
         }
 
         public bool Collision(ICollidable collidable, Point point){
-            return collidable.BoundingBox.Contains(point);
+            return collidable.GetBoundingBox().Contains(point);
         }
 
         private void TestCollision(ICollisionHandler first, ICollisionHandler second) {
             if (first == second)
                 return;
 
-            if (first.BoundingBox.Intersects(second.BoundingBox)) {
+            if (first.GetBoundingBox().Intersects(second.GetBoundingBox())) {
                 first.Collide(second);
                 second.Collide(first);
             }
