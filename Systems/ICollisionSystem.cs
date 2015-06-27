@@ -6,6 +6,7 @@ using Gengine.Map;
 namespace Gengine.Systems {
     public interface ICollisionSystem {
         void Collide(IEnumerable<ICollidable> first, ICollidableMap map);
+        void Overlap(ICollidable collidable, IEnumerable<ICollidable> collidables, Action<ICollidable, ICollidable> onOverlap);
         void Overlap(IEnumerable<ICollidable> first, IEnumerable<ICollidable> second, Action<ICollidable, ICollidable> onOverlap);
         IEnumerable<IRenderable> Collisions { get; }
     }

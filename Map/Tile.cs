@@ -46,7 +46,5 @@ namespace Gengine.Map {
         public Rectangle GetBoundingBox(){
             return _boundingBox;
         }
-
-        public void Collide(ICollidable target) {}
     }
 }
