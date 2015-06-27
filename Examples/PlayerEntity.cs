@@ -7,6 +7,7 @@ namespace Gengine.Examples {
         public Vector2 Position { get { return GetComponent<MovementComponentOLD>().Position; } }
         public Rectangle SourceRectangle { get { return new Rectangle(0, 0, 0, 0); } }
         public Rectangle BoundingBox { get; private set; }
+        public bool DebugDraw { get; set; }
 
         public string Identifier {
             get { return "player"; }

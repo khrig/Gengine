@@ -4,7 +4,7 @@ namespace Gengine.Background {
     public class ParallaxBackgroundTile : IBackgroundTile {
         private readonly Vector2 _speed;
         private readonly Rectangle _sourceRectangle;
-
+        public bool DebugDraw { get; set; }
         public string TextureName { get; private set; }
 
         private Vector2 _renderPosition;

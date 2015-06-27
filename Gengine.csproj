@@ -78,6 +78,7 @@
     <Compile Include="HGengine.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Level\LevelManager.cs" />
+    <Compile Include="Map\ICollidableMap.cs" />
     <Compile Include="Map\IMapRepository.cs" />
     <Compile Include="Map\Layer.cs" />
     <Compile Include="Map\MapRepository.cs" />
@@ -101,7 +102,7 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Examples\PlayerEntity.cs" />
     <Compile Include="IWorld.cs" />
-    <Compile Include="Math\Calc2D.cs" />
+    <Compile Include="MathUtils\Calc2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="State\State.cs" />
     <Compile Include="State\StateManager.cs" />

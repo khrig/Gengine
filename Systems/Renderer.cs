@@ -61,12 +61,12 @@ namespace Gengine.Systems {
 
         private void DrawSprite(IRenderable renderTarget) {
             _spriteBatch.Draw(
-                _resourceManager.GetTexture(renderTarget.TextureName),
-                new Vector2((int)renderTarget.RenderPosition.X, (int)renderTarget.RenderPosition.Y),
-                renderTarget.SourceRectangle,
-                Color.White);
-            
-            if (DebugDraw)
+                    _resourceManager.GetTexture(renderTarget.TextureName),
+                    new Vector2((int) renderTarget.RenderPosition.X, (int) renderTarget.RenderPosition.Y),
+                    renderTarget.SourceRectangle,
+                    Color.White);
+
+            if (DebugDraw || renderTarget.DebugDraw)
                 DrawRectangle(_spriteBatch, new Rectangle((int)renderTarget.RenderPosition.X, (int)renderTarget.RenderPosition.Y, renderTarget.SourceRectangle.Width, renderTarget.SourceRectangle.Height), 1, Color.Red);
         }
 

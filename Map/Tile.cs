@@ -9,6 +9,7 @@ namespace Gengine.Map {
         public Rectangle SourceRectangle { get; private set; }
         public Rectangle BoundingBox { get; private set; }
         public bool IsSolid { get; set; }
+        public bool DebugDraw { get; set; }
 
         public string Identifier {
             get { return "ground"; }
