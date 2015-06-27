@@ -17,11 +17,37 @@ namespace Gengine.Systems {
             _collisions = new List<IRenderable>();
             _collidedTiles = new List<Tile>(4);
         }
-        
+
+        /*
+         * //collision from phaser
+         * 
+            this.game.physics.arcade.collide(this.player, this.blockedLayer);
+            this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
+            this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
+            Implementing collect():
+
+            collect: function(player, collectable) {
+                console.log('yummy!');
+ 
+                //remove sprite
+                collectable.destroy();
+              },
+            And enterDoor(), which is something left for a follow-up tutorial:
+
+            enterDoor: function(player, door) {
+                console.log('entering door that will take you to '+door.targetTilemap+' on x:'+door.targetX+' and y:'+door.targetY);
+              },
+         * */
+
+        public void Overlap(IEnumerable<ICollidable> first, IEnumerable<ICollidable> second, Action<ICollidable, ICollidable> onOverlap) {
+
+
+        }
+
         public void Collide(IEnumerable<ICollidable> collidables, ICollidableMap map){
             if (_collisionRenderingEnabled){
                 _collisions.Clear();
-                map.ClearDebug();
+                map.ForeachTile(RemoveDebugDraw);
             }
 
             foreach (var collidable in collidables){
@@ -141,31 +167,8 @@ namespace Gengine.Systems {
             }
         }
 
-        public void Overlap(IEnumerable<ICollidable> first, IEnumerable<ICollidable> second, Action<ICollidable, ICollidable> onOverlap){
-            
-
+        private void RemoveDebugDraw(Tile tile){
+            tile.DebugDraw = false;
         }
-
-
-        /*
-         * //collision from phaser
-         * 
-            this.game.physics.arcade.collide(this.player, this.blockedLayer);
-            this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
-            this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
-            Implementing collect():
-
-            collect: function(player, collectable) {
-                console.log('yummy!');
- 
-                //remove sprite
-                collectable.destroy();
-              },
-            And enterDoor(), which is something left for a follow-up tutorial:
-
-            enterDoor: function(player, door) {
-                console.log('entering door that will take you to '+door.targetTilemap+' on x:'+door.targetX+' and y:'+door.targetY);
-              },
-         * */
     }
 }
