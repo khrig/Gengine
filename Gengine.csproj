@@ -83,6 +83,7 @@
     <Compile Include="Map\Layer.cs" />
     <Compile Include="Map\MapRepository.cs" />
     <Compile Include="Map\TileAction.cs" />
+    <Compile Include="Map\TileWithMapTransition.cs" />
     <Compile Include="MathUtils\RectangleExtensions.cs" />
     <Compile Include="State\BaseMenuState.cs" />
     <Compile Include="State\FadeState.cs" />

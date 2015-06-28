@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Gengine.Commands;
 using Gengine.Entities;
@@ -8,21 +9,26 @@ namespace Gengine.State {
     public class FadeTransition : Transition {
         private int _alphaValue = 1;
         private readonly float _fadeDelay = 1f;
+        private readonly Action _init;
         private bool _fadeComplete;
         private float _fadeElapsed;
 
-        public FadeTransition(float fadeDelay, string nextState){
+        public FadeTransition(float fadeDelay, string nextState) {
             _fadeDelay = fadeDelay;
             NextStateId = nextState;
+        }
+
+        public FadeTransition(float fadeDelay, string nextState, Action init){
+            _fadeDelay = fadeDelay;
+            NextStateId = nextState;
+            _init = init;
         }
 
         public override bool Update(float deltaTime){
             if (!_fadeComplete){
                 _fadeElapsed += deltaTime;
                 if (_fadeElapsed >= _fadeDelay*deltaTime){
-                    _alphaValue += 3;
-                    _fadeComplete = _alphaValue >= 255;
-                    SetColor(new Color(255, 255, 255, (byte) MathHelper.Clamp(_alphaValue, 0, 255)));
+                    FadeIn();
                 }
             }
             else{
@@ -36,6 +42,15 @@ namespace Gengine.State {
             _fadeComplete = false;
             _alphaValue = 1;
             SetColor(Color.Black);
+
+            if(_init != null)
+                _init();
+        }
+
+        private void FadeIn() {
+            _alphaValue += 3;
+            _fadeComplete = _alphaValue >= 255;
+            SetColor(new Color(255, 255, 255, (byte)MathHelper.Clamp(_alphaValue, 0, 255)));
         }
 
         public override void Unload(){

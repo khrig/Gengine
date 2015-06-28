@@ -39,10 +39,11 @@ namespace Gengine.Systems {
               },
          * */
 
-        public void Overlap(ICollidable collidable, IEnumerable<ICollidable> collidables, Action<ICollidable, ICollidable> onOverlap) {
+        public void Overlap(ICollidable collidable, IEnumerable<ICollidable> collidables, Func<ICollidable, ICollidable, bool> onOverlap) {
             foreach (var second in collidables){
                 if (collidable.GetBoundingBox().Intersects(second.GetBoundingBox())){
-                    onOverlap(collidable, second);
+                    if (onOverlap(collidable, second))
+                        return;
                 }
             }
         }

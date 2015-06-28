@@ -22,7 +22,7 @@ namespace Gengine.State {
         }
 
         public void Add(string stateId, State state) {
-            InitState(state);
+            SetupState(state);
             _availableStates.Add(stateId, state);
         }
 
@@ -54,12 +54,13 @@ namespace Gengine.State {
         }
 
         public void PushState(Transition state) {
-            InitState(state);
+            SetupState(state);
             _stateQueue.Enqueue(() =>{
                 if (_availableStates.ContainsKey(state.NextStateId)) {
                     _availableStates[state.NextStateId].Init();
                     _stateStack.Push(_availableStates[state.NextStateId]);
                 }
+                state.Init();
                 _stateStack.Push(state);
             });
         }
@@ -90,7 +91,7 @@ namespace Gengine.State {
             }
         }
         
-        private void InitState(State state) {
+        private void SetupState(State state) {
             state.StateManager = this;
             state.World = _world;
         }
