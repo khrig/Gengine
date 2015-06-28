@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Gengine.Animation{
-    public class AnimationFrame{
+    public class AnimationFrame {
         public Rectangle SourceRectangle { get; set; }
-        public TimeSpan Duration { get; set; }
+        public float Duration { get; set; }
     }
 }

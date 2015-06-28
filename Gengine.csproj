@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Animation\Animation.cs" />
     <Compile Include="Animation\AnimationFrame.cs" />
+    <Compile Include="Animation\IAnimationMapper.cs" />
     <Compile Include="Background\BackgroundFactory.cs" />
     <Compile Include="Background\BackgroundLayer.cs" />
     <Compile Include="Background\BackgroundLayers.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ICommandFactory.cs" />
     <Compile Include="Commands\SimpleCommandFactory.cs" />
+    <Compile Include="Components\InputComponent.cs" />
     <Compile Include="Entities\ICollisionHandler.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\IEntityFactory.cs" />
