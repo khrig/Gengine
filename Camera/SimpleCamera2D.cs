@@ -1,13 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace Gengine.Camera {
     public class SimpleCamera2D : ICamera {
         private readonly IWorld _world;
+        private const float ZoomUpperLimit = 1.5f;
+        private const float ZoomLowerLimit = .5f;
+        private float _zoom;
 
         public SimpleCamera2D(IWorld world) {
             _world = world;
             _position = Vector2.Zero;
-            Zoom = 1f;
+            _zoom = 1f;
         }
 
         public void SetPosition(Vector2 position) {
@@ -25,8 +29,19 @@ namespace Gengine.Camera {
 
         private Vector2 _position;
         private Vector2 Position { get { return _position; } }
-        private float Rotation { get; set; }
-        private float Zoom { get; set; }
+        public float Rotation { get; set; }
+
+        public float Zoom {
+            get { return _zoom; }
+            set {
+                throw new NotImplementedException("Zoom not implemented, should check from Camera2D");
+                _zoom = value;
+                if (_zoom < ZoomLowerLimit)
+                    _zoom = ZoomLowerLimit;
+                if (_zoom > ZoomUpperLimit)
+                    _zoom = ZoomUpperLimit;
+            }
+        }
 
         public Matrix GetTransformMatrix() {
             return Matrix.CreateRotationZ(Rotation) * Matrix.CreateScale(Zoom) *

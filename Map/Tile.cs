@@ -1,4 +1,6 @@
-﻿using Gengine.Entities;
+﻿using Gengine.CollisionDetection;
+using Gengine.Entities;
+using Gengine.Rendering;
 using Microsoft.Xna.Framework;
 
 namespace Gengine.Map {

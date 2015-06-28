@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Gengine.Entities;
 using Gengine.Map;
+using Gengine.Rendering;
 
-namespace Gengine.Systems {
+namespace Gengine.CollisionDetection {
     public interface ICollisionSystem {
         void Collide(IEnumerable<ICollidable> first, ICollidableMap map);
         /// <summary>

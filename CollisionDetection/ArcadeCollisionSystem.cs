@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gengine.Entities;
 using Gengine.Map;
+using Gengine.Rendering;
 using Microsoft.Xna.Framework;
 
-namespace Gengine.Systems {
+/*
+ * //collisions based on phaser.io - requires that the map has Faces on the tiles
+ */
+
+namespace Gengine.CollisionDetection {
     public class ArcadeCollisionSystem : ICollisionSystem{
         private readonly List<IRenderable> _collisions;
         public IEnumerable<IRenderable> Collisions { get { return _collisionRenderingEnabled ? _collisions : Enumerable.Empty<IRenderable>(); } }
@@ -17,27 +21,6 @@ namespace Gengine.Systems {
             _collisions = new List<IRenderable>();
             _collidedTiles = new List<Tile>(4);
         }
-
-        /*
-         * //collision from phaser
-         * 
-            this.game.physics.arcade.collide(this.player, this.blockedLayer);
-            this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
-            this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
-            Implementing collect():
-
-            collect: function(player, collectable) {
-                console.log('yummy!');
- 
-                //remove sprite
-                collectable.destroy();
-              },
-            And enterDoor(), which is something left for a follow-up tutorial:
-
-            enterDoor: function(player, door) {
-                console.log('entering door that will take you to '+door.targetTilemap+' on x:'+door.targetX+' and y:'+door.targetY);
-              },
-         * */
 
         public void Overlap(ICollidable collidable, IEnumerable<ICollidable> collidables, Func<ICollidable, ICollidable, bool> onOverlap) {
             foreach (var second in collidables){

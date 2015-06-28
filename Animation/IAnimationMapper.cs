@@ -1,4 +1,4 @@
-﻿using Gengine.Components;
+﻿using Gengine.Input;
 
 namespace Gengine.Animation {
     public interface IAnimationMapper {

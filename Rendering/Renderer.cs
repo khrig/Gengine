@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using Gengine.Entities;
+using Gengine.Resources;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Gengine.Resources;
 
-namespace Gengine.Systems {
+namespace Gengine.Rendering {
     public class RenderingSystem {
         private readonly SpriteBatch _spriteBatch;
         private Texture2D _pointTexture;

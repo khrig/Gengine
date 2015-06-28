@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Gengine.CollisionDetection;
+using Gengine.Rendering;
+using Microsoft.Xna.Framework;
 
 namespace Gengine.Entities {
     public interface IProjectile : ICollisionHandler, IRenderable {

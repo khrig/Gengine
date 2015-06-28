@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Gengine.Entities{
+namespace Gengine.Rendering{
     public interface IRenderableText {
         string FontName { get; }
         string Text { get; }

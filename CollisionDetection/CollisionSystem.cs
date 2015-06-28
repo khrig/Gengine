@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Gengine.Entities;
 using Gengine.Map;
 using Microsoft.Xna.Framework;
 
-namespace Gengine.Systems {
+namespace Gengine.CollisionDetection {
     public class CollisionSystem {
         public void HandleCollisions(IEnumerable<ICollisionHandler> collidableObjects) {
             var collidables = collidableObjects as ICollisionHandler[] ?? collidableObjects.ToArray();

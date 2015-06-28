@@ -1,4 +1,4 @@
-﻿using Gengine.Entities;
+﻿using Gengine.Rendering;
 using Microsoft.Xna.Framework;
 
 namespace Gengine.UI {

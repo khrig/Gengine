@@ -1,6 +1,7 @@
 ﻿using Gengine.Commands;
 using Gengine.Entities;
 using System.Collections.Generic;
+using Gengine.Rendering;
 using Microsoft.Xna.Framework;
 
 namespace Gengine.State {

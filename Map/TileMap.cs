@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using Gengine.Entities;
+using Gengine.Rendering;
 using Microsoft.Xna.Framework;
 
 namespace Gengine.Map {
@@ -28,16 +28,6 @@ namespace Gengine.Map {
             return Tiles[x, y];
         }
 
-        public void ForeachTile(Action<Tile> tileAction) {
-            int tileCountX = Width / TileSize;
-            int tileCountY = Height / TileSize;
-            for (int x = 0; x < tileCountX; x++){
-                for (int y = 0; y < tileCountY; y++){
-                    tileAction(Tiles[x, y]);
-                }
-            }
-        }
-
         public Tile PositionToTile(Vector2 position) {
             return PositionToTile(position.X, position.Y);
         }
@@ -46,6 +36,16 @@ namespace Gengine.Map {
             int tileX = (int)(x / TileSize);
             int tileY = (int)(y / TileSize);
             return Tiles[tileX, tileY];
+        }
+
+        public void ForeachTile(Action<Tile> tileAction) {
+            int tileCountX = Width / TileSize;
+            int tileCountY = Height / TileSize;
+            for (int x = 0; x < tileCountX; x++){
+                for (int y = 0; y < tileCountY; y++){
+                    tileAction(Tiles[x, y]);
+                }
+            }
         }
 
         private IEnumerable<IRenderable> _tiles;
