@@ -14,9 +14,16 @@ namespace Gengine.State {
         public abstract bool Update(float deltaTime);
         public abstract void Init();
         public abstract void Unload();
-        public abstract void HandleCommands(CommandQueue commandQueue);
+        protected abstract bool HandleCommand(ICommand command);
         public abstract IEnumerable<IRenderable> GetRenderTargets();
         public abstract IEnumerable<IRenderableText> GetTextRenderTargets();
+
+        internal void HandleCommands(CommandQueue commandQueue) {
+            while (commandQueue.HasCommands()) {
+                var command = commandQueue.GetNext();
+                if (HandleCommand(command)) return;
+            }
+        }
 
         protected void SetTransformation(Matrix? transformationMatrix) {
             StateManager.SetTransformationMatrix(transformationMatrix);

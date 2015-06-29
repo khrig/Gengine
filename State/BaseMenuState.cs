@@ -37,13 +37,6 @@ namespace Gengine.State {
             _selectedOption = 0;
         }
 
-        public override void HandleCommands(CommandQueue commandQueue) {
-            while (commandQueue.HasCommands()) {
-                var command = commandQueue.GetNext();
-                HandleCommand(command);
-            }
-        }
-
         public override IEnumerable<IRenderable> GetRenderTargets(){
             return Enumerable.Empty<IRenderable>();
         }
@@ -64,7 +57,7 @@ namespace Gengine.State {
             _onAction = onEnter;
         }
 
-        private void HandleCommand(ICommand command) {
+        protected override bool HandleCommand(ICommand command) {
             switch (command.Name) {
                 case "Up":
                     MoveUp();
@@ -78,6 +71,7 @@ namespace Gengine.State {
                     _onAction(command.Name);
                     break;
             }
+            return false;
         }
         
         private void MoveDown() {

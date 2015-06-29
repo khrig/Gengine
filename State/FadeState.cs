@@ -56,7 +56,8 @@ namespace Gengine.State {
         public override void Unload(){
         }
 
-        public override void HandleCommands(CommandQueue commandQueue){
+        protected override bool HandleCommand(ICommand command){
+            return true;
         }
 
         public override IEnumerable<IRenderable> GetRenderTargets() {
