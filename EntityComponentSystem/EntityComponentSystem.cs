@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
 namespace Gengine.EntityComponentSystem {
-    public class EntityComponentSystem {
+    public class EntityWorld {
         private readonly EntityManager _entityManager;
         private readonly List<EntitySystem> _entityUpdateSystems;
         private readonly List<EntitySystem> _entityRenderingSystems;
 
-        public EntityComponentSystem() {
+        public EntityWorld() {
             _entityManager = new EntityManager();
             _entityUpdateSystems = new List<EntitySystem>();
             _entityRenderingSystems = new List<EntitySystem>();
@@ -73,6 +73,14 @@ namespace Gengine.EntityComponentSystem {
         /// <returns>A list of all components with the specific type</returns>
         public IEnumerable<T> GetAllComponents<T>(){
             return _entityManager.GetAllComponents<T>();
+        }
+
+        public void Remove(Entity entity){
+            _entityManager.Remove(entity);
+        }
+
+        public void RemoveAll(){
+            _entityManager.RemoveAll();
         }
     }
 }

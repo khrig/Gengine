@@ -1,13 +1,14 @@
 ﻿using Gengine.Commands;
-using Gengine.Entities;
-using System.Collections.Generic;
 using Gengine.Rendering;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace Gengine.State {
     public abstract class State {
         public StateManager StateManager { get; set; }
         public IWorld World { get; set; }
+
+        internal bool Initialized { get; set; }
 
         // the bool return value marks if its fall through or not
         public abstract bool Update(float deltaTime);

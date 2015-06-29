@@ -91,6 +91,7 @@
     <Compile Include="Rendering\RenderComponent.cs" />
     <Compile Include="State\BaseMenuState.cs" />
     <Compile Include="State\FadeState.cs" />
+    <Compile Include="State\SceneState.cs" />
     <Compile Include="State\Transition.cs" />
     <Compile Include="CollisionDetection\ArcadeCollisionSystem.cs" />
     <Compile Include="CollisionDetection\ICollisionSystem.cs" />

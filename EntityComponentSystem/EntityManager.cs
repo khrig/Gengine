@@ -28,6 +28,11 @@ namespace Gengine.EntityComponentSystem{
             return entity;
         }
 
+        public void Remove(Entity entity){
+            _uniqueIdToEntities.Remove(entity.Id);
+            _entityToComponents.Remove(entity.Id);
+        }
+
         public void AddComponent(Entity entity, IComponent component){
             List<IComponent> components = _entityToComponents[entity.Id];
             components.Add(component);
@@ -62,16 +67,17 @@ namespace Gengine.EntityComponentSystem{
             }
         }
 
-        public void Delete(Entity entity){
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<T> GetAllComponents<T>(){
             foreach (var entity in _uniqueIdToEntities.Values){
                 var component = entity.GetComponent(typeof (T));
                 if (component != null)
                     yield return (T)component;
             }
+        }
+
+        public void RemoveAll() {
+            _uniqueIdToEntities.Clear();
+            _entityToComponents.Clear();
         }
     }
 }

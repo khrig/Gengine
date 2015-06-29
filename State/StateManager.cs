@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Gengine.Commands;
-using Gengine.Entities;
 using Gengine.Rendering;
 using Microsoft.Xna.Framework;
 
@@ -48,18 +47,23 @@ namespace Gengine.State {
 
         public void PushState(string stateId) {
             if (_availableStates.ContainsKey(stateId))
-                _stateQueue.Enqueue(() => {
-                    _availableStates[stateId].Init();
-                    _stateStack.Push(_availableStates[stateId]);
-                });
+                _stateQueue.Enqueue(() => PushStateNow(stateId));
+        }
+
+        private void PushStateNow(string stateId){
+            if (_availableStates[stateId].Initialized){
+                _availableStates[stateId].Unload();
+            }
+            _availableStates[stateId].Init();
+            _availableStates[stateId].Initialized = true;
+            _stateStack.Push(_availableStates[stateId]);
         }
 
         public void PushState(Transition state) {
             SetupState(state);
             _stateQueue.Enqueue(() =>{
-                if (_availableStates.ContainsKey(state.NextStateId)) {
-                    _availableStates[state.NextStateId].Init();
-                    _stateStack.Push(_availableStates[state.NextStateId]);
+                if (_availableStates.ContainsKey(state.NextStateId)){
+                    PushStateNow(state.NextStateId);
                 }
                 state.Init();
                 _stateStack.Push(state);
