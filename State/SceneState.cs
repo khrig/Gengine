@@ -6,6 +6,7 @@ using Gengine.EntityComponentSystem;
 namespace Gengine.State {
     public abstract class SceneState : State {
         private readonly SortedList<int, IRenderable> _renderables;
+        private Dictionary<string, object> _stateData; 
         private EntityWorld _entityWorld;
 
         public Action OnUnload { private get; set; }
@@ -16,6 +17,7 @@ namespace Gengine.State {
 
         protected SceneState() {
             _renderables = new SortedList<int, IRenderable>();
+            _stateData = new Dictionary<string, object>();
         }
 
         public override void Unload(){
@@ -56,6 +58,21 @@ namespace Gengine.State {
 
         public override IEnumerable<IRenderable> GetRenderTargets(){
             return _renderables.Values;
+        }
+
+        protected T GetStateValue<T>(string id){
+            object data;
+            if (_stateData.TryGetValue(id, out data)){
+                return (T) data;
+            }
+            throw new Exception("State value with id not found: " + id);
+        }
+
+        protected void SetStateValue<T>(string id, T value) {
+            if (!_stateData.ContainsKey(id))
+                _stateData.Add(id, value);
+            else
+                _stateData[id] = value;
         }
     }
 }
