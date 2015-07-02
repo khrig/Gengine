@@ -62,6 +62,14 @@
     <Compile Include="Commands\ICommandFactory.cs" />
     <Compile Include="Commands\SimpleCommandFactory.cs" />
     <Compile Include="Animation\AnimationComponent.cs" />
+    <Compile Include="DungeonGenerators\CornerToMidGenerator.cs" />
+    <Compile Include="DungeonGenerators\Door.cs" />
+    <Compile Include="DungeonGenerators\DoorBuilder.cs" />
+    <Compile Include="DungeonGenerators\IDungeonGenerator.cs" />
+    <Compile Include="DungeonGenerators\Map.cs" />
+    <Compile Include="DungeonGenerators\MapExtensions.cs" />
+    <Compile Include="DungeonGenerators\PathGenerator.cs" />
+    <Compile Include="DungeonGenerators\Room.cs" />
     <Compile Include="Input\InputComponent.cs" />
     <Compile Include="CollisionDetection\ICollisionHandler.cs" />
     <Compile Include="Entities\IEntity.cs" />
