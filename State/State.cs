@@ -16,7 +16,6 @@ namespace Gengine.State {
         public abstract void Run();
         public abstract void Unload();
         protected abstract bool HandleCommand(ICommand command);
-        public abstract IEnumerable<IRenderable> GetRenderTargets();
         public abstract IEnumerable<IEnumerable<IRenderable>> GetRenderLayers();
         public abstract IEnumerable<IRenderableText> GetTextRenderTargets();
 

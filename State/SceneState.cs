@@ -72,10 +72,6 @@ namespace Gengine.State {
             }
         }
 
-        public override IEnumerable<IRenderable> GetRenderTargets(){
-            return Enumerable.Empty<IRenderable>();
-        }
-
         public override IEnumerable<IEnumerable<IRenderable>> GetRenderLayers(){
             foreach (var layerKey in _renderLayers.Keys.OrderBy(key => key))
                 yield return _renderLayers[layerKey].Values;

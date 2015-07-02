@@ -109,10 +109,6 @@ namespace Gengine.State {
             state.World = _world;
         }
 
-        public IEnumerable<IRenderable> GetRenderTargets(){
-            return _stateStack.SelectMany(state => state.GetRenderTargets());
-        }
-
         public IEnumerable<IEnumerable<IRenderable>> GetRenderLayers() {
             return _stateStack.SelectMany(state => state.GetRenderLayers());
         } 

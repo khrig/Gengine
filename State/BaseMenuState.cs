@@ -39,10 +39,6 @@ namespace Gengine.State {
             _selectedOption = 0;
         }
 
-        public override IEnumerable<IRenderable> GetRenderTargets(){
-            return Enumerable.Empty<IRenderable>();
-        }
-
         public override IEnumerable<IEnumerable<IRenderable>> GetRenderLayers(){
             return Enumerable.Empty<IEnumerable<IRenderable>>();
         }

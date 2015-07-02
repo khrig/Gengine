@@ -63,10 +63,6 @@ namespace Gengine.State {
             return true;
         }
 
-        public override IEnumerable<IRenderable> GetRenderTargets() {
-            return Enumerable.Empty<IRenderable>();
-        }
-
         public override IEnumerable<IEnumerable<IRenderable>> GetRenderLayers() {
             return Enumerable.Empty<IEnumerable<IRenderable>>();
         }
