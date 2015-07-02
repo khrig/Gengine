@@ -1,5 +1,4 @@
 ﻿using Gengine.CollisionDetection;
-using Gengine.Entities;
 using Gengine.Rendering;
 using Microsoft.Xna.Framework;
 
@@ -19,10 +18,6 @@ namespace Gengine.Map {
 
         public bool IsSolid { get; set; }
         public bool DebugDraw { get; set; }
-
-        public string Identifier {
-            get { return "ground"; }
-        }
 
         public Vector2 RenderPosition {
             get { return new Vector2(_pixelPosition.X, _pixelPosition.Y); }
