@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Gengine.Commands;
-using Gengine.Entities;
 using Gengine.Rendering;
 using Gengine.UI;
 using Microsoft.Xna.Framework;
@@ -28,7 +27,10 @@ namespace Gengine.State {
             return false;
         }
 
-        public override void Init(){
+        public override void Setup(){
+        }
+
+        public override void Run(){
         }
 
         public override void Unload() {
@@ -39,6 +41,10 @@ namespace Gengine.State {
 
         public override IEnumerable<IRenderable> GetRenderTargets(){
             return Enumerable.Empty<IRenderable>();
+        }
+
+        public override IEnumerable<IEnumerable<IRenderable>> GetRenderLayers(){
+            return Enumerable.Empty<IEnumerable<IRenderable>>();
         }
 
         public override IEnumerable<IRenderableText> GetTextRenderTargets() {

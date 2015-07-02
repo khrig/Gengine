@@ -50,11 +50,19 @@ namespace Gengine.State {
                 _stateQueue.Enqueue(() => PushStateNow(stateId));
         }
 
+        public void PushAndSetupState(string stateId) {
+            if (_availableStates.ContainsKey(stateId))
+                _stateQueue.Enqueue(() =>{
+                    _availableStates[stateId].Setup();
+                    PushStateNow(stateId);
+                });
+        }
+
         private void PushStateNow(string stateId){
             if (_availableStates[stateId].Initialized){
                 _availableStates[stateId].Unload();
             }
-            _availableStates[stateId].Init();
+            _availableStates[stateId].Run();
             _availableStates[stateId].Initialized = true;
             _stateStack.Push(_availableStates[stateId]);
         }
@@ -65,7 +73,7 @@ namespace Gengine.State {
                 if (_availableStates.ContainsKey(state.NextStateId)){
                     PushStateNow(state.NextStateId);
                 }
-                state.Init();
+                state.Run();
                 _stateStack.Push(state);
             });
         }
@@ -105,9 +113,13 @@ namespace Gengine.State {
             return _stateStack.SelectMany(state => state.GetRenderTargets());
         }
 
+        public IEnumerable<IEnumerable<IRenderable>> GetRenderLayers() {
+            return _stateStack.SelectMany(state => state.GetRenderLayers());
+        } 
+
         public IEnumerable<IRenderableText> GetRenderText() {
             return _stateStack.SelectMany(state => state.GetTextRenderTargets());
-        } 
+        }
         
         public Matrix? GetRenderTransformation() {
             return _transformationMatrix;

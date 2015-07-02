@@ -23,12 +23,31 @@ namespace Gengine.Rendering {
         }
 
         public void DrawWithRenderTarget(IEnumerable<IRenderable> renderables, IEnumerable<IRenderableText> texts, Matrix? transformMatrix, Color color) {
-            
             // Set the device to the render target
             _spriteBatch.GraphicsDevice.Clear(Color.Black);
             _spriteBatch.GraphicsDevice.SetRenderTarget(_renderTarget);
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, transformMatrix);
             Draw(renderables);
+            _spriteBatch.End();
+            _spriteBatch.Begin();
+            Draw(texts);
+            _spriteBatch.End();
+
+            // Reset the device to the back buffer
+            _spriteBatch.GraphicsDevice.SetRenderTarget(null);
+
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
+            _spriteBatch.Draw(_renderTarget, new Rectangle(0, 0, _windowWidth, _windowHeight), color);
+            _spriteBatch.End();
+        }
+
+        public void DrawLayers(IEnumerable<IEnumerable<IRenderable>> renderables, IEnumerable<IRenderableText> texts, Matrix? transformMatrix, Color color) {
+            // Set the device to the render target
+            _spriteBatch.GraphicsDevice.Clear(Color.Black);
+            _spriteBatch.GraphicsDevice.SetRenderTarget(_renderTarget);
+            _spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, transformMatrix);
+            foreach(var layer in renderables)
+                Draw(layer);
             _spriteBatch.End();
             _spriteBatch.Begin();
             Draw(texts);

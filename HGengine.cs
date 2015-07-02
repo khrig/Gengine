@@ -59,7 +59,7 @@ namespace Gengine {
         }
 
         public void Draw(){
-            _renderingSystem.DrawWithRenderTarget(_stateManager.GetRenderTargets(), 
+            _renderingSystem.DrawLayers(_stateManager.GetRenderLayers(), 
                 _stateManager.GetRenderText(), 
                 _stateManager.GetRenderTransformation(), 
                 _stateManager.GetRenderColor());

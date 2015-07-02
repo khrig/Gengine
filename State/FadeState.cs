@@ -24,6 +24,9 @@ namespace Gengine.State {
             _init = init;
         }
 
+        public override void Setup() {
+        }
+
         public override bool Update(float deltaTime){
             if (!_fadeComplete){
                 _fadeElapsed += deltaTime;
@@ -37,7 +40,7 @@ namespace Gengine.State {
             return false;
         }
 
-        public override void Init(){
+        public override void Run(){
             _fadeElapsed = 0;
             _fadeComplete = false;
             _alphaValue = 1;
@@ -62,6 +65,10 @@ namespace Gengine.State {
 
         public override IEnumerable<IRenderable> GetRenderTargets() {
             return Enumerable.Empty<IRenderable>();
+        }
+
+        public override IEnumerable<IEnumerable<IRenderable>> GetRenderLayers() {
+            return Enumerable.Empty<IEnumerable<IRenderable>>();
         }
 
         public override IEnumerable<IRenderableText> GetTextRenderTargets() {

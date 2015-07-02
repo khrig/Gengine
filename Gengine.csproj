@@ -123,6 +123,7 @@
     <Compile Include="Map\Tile.cs" />
     <Compile Include="Map\TileMap.cs" />
     <Compile Include="UI\MenuOption.cs" />
+    <Compile Include="UI\SpriteNode.cs" />
     <Compile Include="UI\TextNode.cs" />
     <Compile Include="Utils\Compression.cs" />
     <Compile Include="Resources\IResourceManager.cs" />

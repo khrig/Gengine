@@ -12,10 +12,12 @@ namespace Gengine.State {
 
         // the bool return value marks if its fall through or not
         public abstract bool Update(float deltaTime);
-        public abstract void Init();
+        public abstract void Setup();
+        public abstract void Run();
         public abstract void Unload();
         protected abstract bool HandleCommand(ICommand command);
         public abstract IEnumerable<IRenderable> GetRenderTargets();
+        public abstract IEnumerable<IEnumerable<IRenderable>> GetRenderLayers();
         public abstract IEnumerable<IRenderableText> GetTextRenderTargets();
 
         internal void HandleCommands(CommandQueue commandQueue) {

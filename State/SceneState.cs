@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Gengine.Rendering;
 using Gengine.EntityComponentSystem;
 
 namespace Gengine.State {
     public abstract class SceneState : State {
         private readonly SortedList<int, IRenderable> _renderables;
-        private Dictionary<string, object> _stateData; 
+        private readonly Dictionary<string, object> _stateData;
+        private readonly Dictionary<int, SortedList<int, IRenderable>> _renderLayers;
         private EntityWorld _entityWorld;
 
         public Action OnUnload { private get; set; }
@@ -18,6 +20,7 @@ namespace Gengine.State {
         protected SceneState() {
             _renderables = new SortedList<int, IRenderable>();
             _stateData = new Dictionary<string, object>();
+            _renderLayers = new Dictionary<int, SortedList<int, IRenderable>>();
         }
 
         public override void Unload(){
@@ -34,13 +37,26 @@ namespace Gengine.State {
 
         public void AddRenderable(IEnumerable<IRenderable> renderables) {
             foreach (var renderable in renderables){
-                AddRenderable(renderable);    
+                AddRenderable(renderable);
             }
         }
 
-        public void AddRenderable(IRenderable renderable) {
-            if(!_renderables.ContainsValue(renderable))
-                _renderables.Add(_renderables.Count + 1, renderable);
+        public void AddRenderable(IRenderable renderable){
+            AddRenderable(renderable, 0);
+        }
+
+        public void AddRenderable(IEnumerable<IRenderable> renderables, int layer) {
+            foreach (var renderable in renderables) {
+                AddRenderable(renderable, layer);
+            }
+        }
+        
+        public void AddRenderable(IRenderable renderable, int layer) {
+            if (!_renderLayers.ContainsKey(layer)){
+                _renderLayers.Add(layer, new SortedList<int, IRenderable>());
+            }
+            if (!_renderLayers[layer].ContainsValue(renderable))
+                _renderLayers[layer].Add(_renderLayers[layer].Count + 1, renderable);
         }
 
         public void RemoveRenderable(IEnumerable<IRenderable> renderables){
@@ -57,7 +73,12 @@ namespace Gengine.State {
         }
 
         public override IEnumerable<IRenderable> GetRenderTargets(){
-            return _renderables.Values;
+            return Enumerable.Empty<IRenderable>();
+        }
+
+        public override IEnumerable<IEnumerable<IRenderable>> GetRenderLayers(){
+            foreach (var layerKey in _renderLayers.Keys.OrderBy(key => key))
+                yield return _renderLayers[layerKey].Values;
         }
 
         protected T GetStateValue<T>(string id){
