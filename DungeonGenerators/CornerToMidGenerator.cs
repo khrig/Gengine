@@ -17,7 +17,7 @@ namespace Gengine.DungeonGenerators {
         public Map CreateDungeon(int width, int height) {
             Map map;
             while (true){
-                map = CreateRandomStartDungeon(width, height);
+                map = CreateStartDungeon(width, height);
                 _pathGenerator.GeneratePathToEnd(map, 60);
                 if (map.ReachedEnd && map.RoomsInPath < 25)
                     break;
@@ -26,6 +26,13 @@ namespace Gengine.DungeonGenerators {
             AddSideRooms(map);
             _doorBuilder.AddDoors(map);
             RemoveUnconnectedRooms(map);
+            return map;
+        }
+
+        private Map CreateStartDungeon(int width, int height) {
+            var map = new Map(width, height);
+            map.SetEnd(6, 5);
+            map.SetRandomCornerStart(0);
             return map;
         }
 
@@ -53,9 +60,9 @@ namespace Gengine.DungeonGenerators {
             for (int y = 0; y < map.Height; y++) {
                 for (int x = 0; x < map.Width; x++) {
                     if (map.CountNeighbours(map[x, y]) == 0)
-                        map[x, y] = new Room { X = x, Y = y };
+                        map[x, y] = new Room { X = x, Y = y, Type = RoomType.NoRoom};
                     else if (RoomHasOnlySideRoomConnections(map, map[x, y]))
-                        map[x, y] = new Room { X = x, Y = y };
+                        map[x, y] = new Room { X = x, Y = y, Type = RoomType.NoRoom };
                 }
             }
         }

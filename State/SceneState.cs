@@ -6,7 +6,6 @@ using Gengine.EntityComponentSystem;
 
 namespace Gengine.State {
     public abstract class SceneState : State {
-        private readonly SortedList<int, IRenderable> _renderables;
         private readonly Dictionary<string, object> _stateData;
         private readonly Dictionary<int, SortedList<int, IRenderable>> _renderLayers;
         private EntityWorld _entityWorld;
@@ -18,7 +17,6 @@ namespace Gengine.State {
         }
 
         protected SceneState() {
-            _renderables = new SortedList<int, IRenderable>();
             _stateData = new Dictionary<string, object>();
             _renderLayers = new Dictionary<int, SortedList<int, IRenderable>>();
         }
@@ -27,7 +25,7 @@ namespace Gengine.State {
             if (OnUnload != null)
                 OnUnload();
 
-            _renderables.Clear();
+            _renderLayers.Clear();
             _entityWorld.RemoveAll();
         }
 
@@ -66,9 +64,12 @@ namespace Gengine.State {
         }
 
         public void RemoveRenderable(IRenderable renderable){
-            if (_renderables.ContainsValue(renderable)){
-                int index = _renderables.IndexOfValue(renderable);
-                _renderables.RemoveAt(index);
+            foreach (var layer in _renderLayers){
+                if (layer.Value.ContainsValue(renderable)) {
+                    var index = _renderLayers[layer.Key].IndexOfValue(renderable);
+                    _renderLayers[layer.Key].RemoveAt(index);
+                    return;
+                }    
             }
         }
 

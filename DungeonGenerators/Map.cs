@@ -40,6 +40,7 @@
             StartX = x;
             StartY = y;
             _grid[x, y].Id = 1;
+            _grid[x, y].Type = RoomType.Start;
         }
 
         public bool ReachedEnd { get; set; }
