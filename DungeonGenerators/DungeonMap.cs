@@ -1,5 +1,5 @@
 ﻿namespace Gengine.DungeonGenerators {
-    public class Map {
+    public class DungeonMap {
         public int Width { get; set; }
         public int Height { get; set; }
         public int EndX { get; set; }
@@ -7,7 +7,7 @@
         public int StartX { get; set; }
         public int StartY { get; set; }
         private readonly Room[,] _grid;
-        public Map(int x, int y) {
+        public DungeonMap(int x, int y) {
             _grid = new Room[x, y];
             Width = x;
             Height = y;

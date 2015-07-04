@@ -1,5 +1,5 @@
 ﻿namespace Gengine.DungeonGenerators {
     public interface IDungeonGenerator{
-        Map CreateDungeon(int width, int height);
+        DungeonMap CreateDungeon(int width, int height);
     }
 }

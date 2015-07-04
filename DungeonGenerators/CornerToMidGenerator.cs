@@ -14,61 +14,61 @@ namespace Gengine.DungeonGenerators {
             _doorBuilder = new DoorBuilder();
         }
 
-        public Map CreateDungeon(int width, int height) {
-            Map map;
+        public DungeonMap CreateDungeon(int width, int height) {
+            DungeonMap dungeonMap;
             while (true){
-                map = CreateStartDungeon(width, height);
-                _pathGenerator.GeneratePathToEnd(map, 60);
-                if (map.ReachedEnd && map.RoomsInPath < 25)
+                dungeonMap = CreateStartDungeon(width, height);
+                _pathGenerator.GeneratePathToEnd(dungeonMap, 60);
+                if (dungeonMap.ReachedEnd && dungeonMap.RoomsInPath < 25)
                     break;
             }
 
-            AddSideRooms(map);
-            _doorBuilder.AddDoors(map);
-            RemoveUnconnectedRooms(map);
-            return map;
+            AddSideRooms(dungeonMap);
+            _doorBuilder.AddDoors(dungeonMap);
+            RemoveUnconnectedRooms(dungeonMap);
+            return dungeonMap;
         }
 
-        private Map CreateStartDungeon(int width, int height) {
-            var map = new Map(width, height);
+        private DungeonMap CreateStartDungeon(int width, int height) {
+            var map = new DungeonMap(width, height);
             map.SetEnd(6, 5);
             map.SetRandomCornerStart(0);
             return map;
         }
 
-        private Map CreateRandomStartDungeon(int width, int height) {
-            var map = new Map(width, height);
+        private DungeonMap CreateRandomStartDungeon(int width, int height) {
+            var map = new DungeonMap(width, height);
             map.SetEnd(6, 5);
             map.SetRandomCornerStart(_rand.Next(4));
             return map;
         }
 
-        private void AddSideRooms(Map map){
-            AddSideRooms(map, 70);
+        private void AddSideRooms(DungeonMap dungeonMap){
+            AddSideRooms(dungeonMap, 70);
         }
 
-        private void AddSideRooms(Map map, int probability) {
-            for (int y = 0;y < map.Height;y++) {
-                for (int x = 0;x < map.Width;x++) {
-                    if (map[x, y].Id == 0 && _rand.Next(100) < probability)
-                        map[x, y].Id = _sideRoomId++;
+        private void AddSideRooms(DungeonMap dungeonMap, int probability) {
+            for (int y = 0;y < dungeonMap.Height;y++) {
+                for (int x = 0;x < dungeonMap.Width;x++) {
+                    if (dungeonMap[x, y].Id == 0 && _rand.Next(100) < probability)
+                        dungeonMap[x, y].Id = _sideRoomId++;
                 }
             }
         }
 
-        private void RemoveUnconnectedRooms(Map map) {
-            for (int y = 0; y < map.Height; y++) {
-                for (int x = 0; x < map.Width; x++) {
-                    if (map.CountNeighbours(map[x, y]) == 0)
-                        map[x, y] = new Room { X = x, Y = y, Type = RoomType.NoRoom};
-                    else if (RoomHasOnlySideRoomConnections(map, map[x, y]))
-                        map[x, y] = new Room { X = x, Y = y, Type = RoomType.NoRoom };
+        private void RemoveUnconnectedRooms(DungeonMap dungeonMap) {
+            for (int y = 0; y < dungeonMap.Height; y++) {
+                for (int x = 0; x < dungeonMap.Width; x++) {
+                    if (dungeonMap.CountNeighbours(dungeonMap[x, y]) == 0)
+                        dungeonMap[x, y] = new Room { X = x, Y = y, Type = RoomType.NoRoom};
+                    else if (RoomHasOnlySideRoomConnections(dungeonMap, dungeonMap[x, y]))
+                        dungeonMap[x, y] = new Room { X = x, Y = y, Type = RoomType.NoRoom };
                 }
             }
         }
 
-        private bool RoomHasOnlySideRoomConnections(Map map, Room room) {
-            var neighbours = map.GetNeighbours(room);
+        private bool RoomHasOnlySideRoomConnections(DungeonMap dungeonMap, Room room) {
+            var neighbours = dungeonMap.GetNeighbours(room);
             if (room.Id == 88 && neighbours.All(n => n.Id == 88 || n.Id == 0))
                 return true;
 

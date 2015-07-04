@@ -1,31 +1,31 @@
 ﻿namespace Gengine.DungeonGenerators {
     public class DoorBuilder {
-        public void AddDoors(Map map) {
-            for (int y = 0;y < map.Height;y++) {
-                for (int x = 0;x < map.Width;x++) {
-                    if (map[x, y].Id != 0) {
-                        AddDoors(map, map[x, y]);
+        public void AddDoors(DungeonMap dungeonMap) {
+            for (int y = 0;y < dungeonMap.Height;y++) {
+                for (int x = 0;x < dungeonMap.Width;x++) {
+                    if (dungeonMap[x, y].Id != 0) {
+                        AddDoors(dungeonMap, dungeonMap[x, y]);
                     }
                 }
             }
         }
 
-        private void AddDoors(Map map, Room room) {
-            if (room.X - 1 >= 0 && map[room.X - 1, room.Y].Id != 0) {
+        private void AddDoors(DungeonMap dungeonMap, Room room) {
+            if (room.X - 1 >= 0 && dungeonMap[room.X - 1, room.Y].Id != 0) {
                 room.HasDoors = true;
-                room.AddDoor(map[room.X - 1, room.Y].Id, DoorPosition.Left);
+                room.AddDoor(dungeonMap[room.X - 1, room.Y].Id, DoorPosition.Left);
             }
-            if (room.X + 1 < map.Width && map[room.X + 1, room.Y].Id != 0) {
+            if (room.X + 1 < dungeonMap.Width && dungeonMap[room.X + 1, room.Y].Id != 0) {
                 room.HasDoors = true;
-                room.AddDoor(map[room.X + 1, room.Y].Id, DoorPosition.Right);
+                room.AddDoor(dungeonMap[room.X + 1, room.Y].Id, DoorPosition.Right);
             }
-            if (room.Y - 1 >= 0 && map[room.X, room.Y - 1].Id != 0) {
+            if (room.Y - 1 >= 0 && dungeonMap[room.X, room.Y - 1].Id != 0) {
                 room.HasDoors = true;
-                room.AddDoor(map[room.X, room.Y - 1].Id, DoorPosition.Top);
+                room.AddDoor(dungeonMap[room.X, room.Y - 1].Id, DoorPosition.Top);
             }
-            if (room.Y + 1 < map.Height && map[room.X, room.Y + 1].Id != 0) {
+            if (room.Y + 1 < dungeonMap.Height && dungeonMap[room.X, room.Y + 1].Id != 0) {
                 room.HasDoors = true;
-                room.AddDoor(map[room.X, room.Y + 1].Id, DoorPosition.Bottom);
+                room.AddDoor(dungeonMap[room.X, room.Y + 1].Id, DoorPosition.Bottom);
             }
         }
     }
