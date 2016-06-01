@@ -1,5 +1,5 @@
 # Gengine
-A framework for building games with C# and Monogame (probably works with FNA also).
+A library for building games with C# and Monogame (probably works with FNA also).
 
 Features:
 * Basic Entity component system
